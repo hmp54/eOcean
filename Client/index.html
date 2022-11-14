@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+<body>
+    <h1>Welcome to eOcean Database Management System!</h1>
+    <div class="tabs">
+        <div class = "tabs__sidebar">
+                <h3>Operations:</h3>
+                <button class="tabs__button" data-for-tab="1">Create</button>
+                <button class="tabs__button" data-for-tab="2">Update</button>
+                <button class="tabs__button" data-for-tab="3">Read</button>
+                <button class="tabs__button" data-for-tab="4">Delete</button>
+        </div>
+        <div class = "forms">
+            <div class="tabs__content" data-tab="1">
+                <div class="create__new-user">
+                    <h2>Create new user</h2>
+                    <form class="form__new-user">
+                        <label for="fname">First Name:</label>
+                        <input type="text" id="fname" name="fname">
+                        <label for="lname">Last Name:</label>
+                        <input type="text" id="lname" name="lname">
+                        <label for="email">email:</label>
+                        <input type="text" id="email" name="email">
+                        <label for="cardNum">Credit Card Number:</label>
+                        <input type="text" id="cardNum" name="cardNum">
+                        <label for="billingAddress">Billing Address:</label>
+                        <input type="text" id="billingAddress" name="billingAddress">
+                        <label for="shippingAddress">Shipping Address:</label>
+                        <input type="text" id="shippingAddress" name="shippingAddress">
+                        <input class="submit" type="submit" value="Submit">
+                    </form>
+                </div>
+                <div class="create__new-seller">
+                    <h2>Register new seller</h2>
+                    <form>
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <div>
+                    <h2>Create new item listing</h2>
+                    <form>
+                        <label for="productName">Product Name:</label>
+                        <input type="text" id="productName" name="productName">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <div>
+                    <h2>Create new order</h2>
+                    <form>
+                        <label for="orderID">New Order ID:</label>
+                        <input type="text" id="orderID" name="orderID">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+            <div class="tabs__content" data-tab="2">
+                <div>
+                    <h2>Update user information</h2>
+                    <form>
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+            <div class="tabs__content" data-tab="3">
+                <h2>Get product information</h2>
+                <form>
+                    <label for="productName">Product Name:</label>
+                    <input type="text" id="productName" name="productName">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="tabs__content" data-tab="4">
+                <h2>Delete existing account</h2>
+                <form>
+                    <label for="orderID">New Order ID:</label>
+                    <input type="text" id="orderID" name="orderID">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="output">
+        <h3>Query result: </h3>
+        <div class="output__display">
+            <text>//output results here</text>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
