@@ -10,7 +10,7 @@ export default function Seller() {
     }
 
   return (
-    <div className="insert__option">
+    <div className="form-field">
         <h2>Register new seller</h2>
         <form onSubmit={submitted}>
             <p>*Seller must already have an existing user account first. To create one, go to Insert > New User.</p>

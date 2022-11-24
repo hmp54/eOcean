@@ -11,7 +11,7 @@ export default function Warehouse() {
   }
 
   return (
-    <div className="insert__option warehouse">
+    <div className="form-field warehouse">
       <h2>Create a New Warehouse Location: </h2>
       <form onSubmit={submitted}>
         <label htmlFor='city'>City:</label>

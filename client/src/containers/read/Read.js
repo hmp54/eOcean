@@ -6,6 +6,7 @@ import ReadWareHouseInfo from './ReadWareHouseInfo'
 import ReadSellerAccount from './ReadSellerAccount'
 import ReadProductCategory from './ReadProductCategory'
 import ReadProductType from './ReadProductType'
+import GeneralSearch from './GeneralSearch'
 
 import {
   BrowserRouter,
@@ -22,6 +23,8 @@ export default function () {
           <Link className="link" to="/read/user-account">User Account</Link>
           <Link className="link" to="/read/seller-account">Seller Account</Link>
           <Link className="link" to="/read/order-invoice">Order Invoice</Link>
+          <Link className="link" to="/read/product-type">Product Type</Link>
+          <Link className="link" to="/read/product-category">Product Category</Link>
           <Link className="link" to="/read/item-listing">Item Listing</Link>
           <Link className="link" to="/read/warehouse-info">Warehouse Info</Link>
       </div>

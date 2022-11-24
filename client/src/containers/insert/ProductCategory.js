@@ -9,7 +9,7 @@ export default function ProductCategory() {
   }
   
   return (
-    <div className="insert__option">
+    <div className="form-field">
       <h2>Create a New Product Category</h2>
       <form onSubmit={submitted}>
         <label htmlFor='category'>Category name: </label>

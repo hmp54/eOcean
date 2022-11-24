@@ -15,7 +15,7 @@ export default function User() {
   }
 
   return (
-    <div className="insert__option user">
+    <div className="form-field user">
       <h2>Create new user:</h2>
       <form onSubmit={submitted}>
         <label htmlFor="fname" >First Name:</label>

@@ -12,7 +12,7 @@ export default function Order() {
     }
 
     return (
-    <div className="insert__option">
+    <div className="form-field">
         <h2>Create New Order</h2>
         <form onSubmit={submitted}>
             <label htmlFor="itemID">Item ID: </label>

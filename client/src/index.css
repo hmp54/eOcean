@@ -72,17 +72,17 @@ code {
   flex-direction: row;
 }
 
-.insert__option{
+.form-field{
   padding: 1em;
 }
 
-.insert__option form{
+.form-field form{
   display: flex; 
   flex-direction: column;
   width: 40%; 
 }
 
-.insert__option label{
+.form-field label{
   margin-top: 1rem;
 }
 

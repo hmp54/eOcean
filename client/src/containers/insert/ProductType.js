@@ -6,7 +6,7 @@ export default function ProductType() {
   const[productDescription, setDescription] = useState(""); 
 
   return (
-    <div className="insert__option">
+    <div className="form-field">
       <h2>Create a New Product Type:</h2>
       <form>
         <label htmlFor='productName'>Product Name:</label>

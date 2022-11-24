@@ -14,7 +14,7 @@ export default function ItemListing() {
   }
 
   return (
-    <div className="insert__option item-listing">
+    <div className="form-field item-listing">
       <h2>Create new item listing: </h2>
       <form onSubmit={submitted}>
         <label htmlFor="itemID">Item ID: </label>
