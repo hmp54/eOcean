@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.home{
+  padding: 1rem;
+}
+
+.main{
+  display: flex; 
+  flex-direction: column;
+}
+
+.options{
+  margin-right: 1em;
+  padding-right: 1em;
+  background-color: #999999;
+}
+
+.options nav{
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+
+
+.link{
+  margin: 1rem 2rem;
+  text-decoration: none;
+  color: inherit; 
+}
+
+.link:visited{
+  text-decoration: none;
+}
+
+
+.container__insert{
+  display: flex;
+  flex-direction: column;
+}
+
+.container__header{
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.container__response{
+  border: 1px #999999 solid; 
+  border-radius: 5px;
+  width: 80%;
+  margin: 2rem 1rem;
+  padding: 1rem;
+}
+
+.container__response h3{
+  color: #777;
+}
+
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+.insert__option{
+  padding: 1em;
+}
+
+.insert__option form{
+  display: flex; 
+  flex-direction: column;
+  width: 40%; 
+}
+
+.insert__option label{
+  margin-top: 1rem;
+}
+
+.submit {
+  margin-top: 2rem;
+  width: 30%;
+}
