@@ -76,12 +76,12 @@ export default function User() {
         <label htmlFor="isASeller">Is this user also a seller?</label>
         <select
           id="isASeller"
-              value={isSeller}
-              onChange={(e)=> setIsSeller(e.target.value)}
+          value={isSeller}
+          onChange={(e)=> setIsSeller(e.target.value)}
         >
           <option value="seller">Yes</option>
           <option value="notSeller">No</option>
-          </select>
+        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>

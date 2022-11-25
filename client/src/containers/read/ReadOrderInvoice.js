@@ -6,6 +6,8 @@ export default function SellerAccount() {
   const[userID, setUserID] = useState(""); 
   const[startDate, setStartDate] = useState(""); 
   const[endDate, setEndDate] = useState("");  
+  const[orderStatus, setOrderStatus] = useState(""); 
+  const[warehouse, setWarehouse] = useState(""); 
 
   const submitted = (e) =>{
     e.preventDefault(); 
@@ -33,6 +35,14 @@ export default function SellerAccount() {
           value={itemID}
           onChange={(e) => setItemID(e.target.value)}
         />
+        <label htmlFor="userID">User ID: </label>
+        <input 
+          placeholder="ex. 123456"
+          type="text"
+          id="userID"
+          value={userID}
+          onChange={(e) => setUserID(e.target.value)}
+        />
         <h3>Advanced search options:</h3> 
         <div className="read__orderDate">
           <div>
@@ -56,7 +66,16 @@ export default function SellerAccount() {
           />
           </div>
         </div>
-
+        <label htmlFor="orderStatus">Order Status: </label>
+        <select
+            id="orderStatus"
+            value={orderStatus}
+            onChange={(e)=> setOrderStatus(e.target.value)}
+        >
+            <option value="Paid">Paid</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
       

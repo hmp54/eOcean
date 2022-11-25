@@ -12,8 +12,7 @@ export default function ProductCategory() {
     <div className="form-field">
       <h2>Create a New Product Category</h2>
       <form onSubmit={submitted}>
-        <label htmlFor='category'>Category name: </label>
-        <input 
+        <label htmlFor='category'>Category name: </label>        <input 
             placeholder="ex. 'dresses'"
             type="text" 
             id="category" 

@@ -1,30 +1,31 @@
 import React, {useState} from 'react'
 
 export default function ItemListing() {
-  const [itemID, setItemID] = useState("");
+  const [sellerID, setSellerID] = useState("");
   const [productID, setProductID] = useState("");
   const [condition, setCondition] = useState("");
-  const [warehouseID, setWarehouseID] = useState("");
+  const [warehouse, setWarehouse] = useState("");
   const [itemPrice, setItemPrice] = useState("");
   const [shippingPrice, setShippingPrice] = useState("");
 
+
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log("Created item listing:" + itemID + productID + condition)
+    console.log("Created item listing:" + sellerID + productID + condition)
   }
 
   return (
     <div className="form-field item-listing">
       <h2>Create new item listing: </h2>
       <form onSubmit={submitted}>
-        <label htmlFor="itemID">Item ID: </label>
+        <label htmlFor="sellerID">Seller ID: </label>
         <input
           placeholder='ex: 123456789'
           type='text'
-          id='itemID'
-          name='itemID'
-          value={itemID}
-          onChange={(e) => setItemID(e.target.value)}
+          id='sellerID'
+          name='sellerID'
+          value={sellerID}
+          onChange={(e) => setSellerID(e.target.value)}
         />
         <label htmlFor="productID">Product ID: </label>
         <input
@@ -46,15 +47,16 @@ export default function ItemListing() {
           <option value="Used - Good">Used - Good</option>
           <option value="Used - Fair">Used - Fair</option>
         </select>
-        <label htmlFor="warehouseID">Warehouse ID: </label>
-        <input
-          placeholder='ex: 123456789'
-          type='text'
-          id='warehouseID'
-          name='warehouseID'
-          value={warehouseID}
-          onChange={(e) => setWarehouseID(e.target.value)}
-        />
+        <label htmlFor="warehouseLocation">Warehouse: </label>
+        <select
+            id="warehouse"
+            value={warehouse}
+            onChange={(e)=> setWarehouse(e.target.value)}
+        >
+            <option value="Washington DC - 1">Washington DC - 1</option>
+            <option value="Portland - 4">Portland - 4</option>
+            <option value="Philadelphia - 2">Philadelphia - 2</option>
+        </select>
         <label htmlFor="itemPrice">Item Asking Price: </label>
         <input
           placeholder='ex: $10.99'
