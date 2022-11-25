@@ -17,6 +17,8 @@ COSC-280 final mySQL project
 
 ## What's in each folder:
 
-**Client:** UI implementation - created with Javascript + React JS
-**Server:** Code that connects the UI to the MySQL database - created with Javascript, Node JS, MySql JS 2 (A library that allows SQL queries to be made in Javascript)
-**Scripts:** all of the .sql files live here.
+1. **Client:** UI implementation - created with Javascript + React JS
+
+2. **Server:** Code that connects the UI to the MySQL database - created with Javascript, Node JS, MySql JS 2 (A library that allows SQL queries to be made in Javascript)
+
+3. **Scripts:** all of the .sql files live here.
