@@ -36,14 +36,16 @@ export default function ItemListing() {
           onChange={(e) => setProductID(e.target.value)}
         />
         <label htmlFor="condition">Item condition: </label>
-        <input
-          placeholder='ex. "good"'
-          type='text'
-          id='condition'
-          name='condition'
+        <select
+          id="condition"
           value={condition}
-          onChange={(e) => setCondition(e.target.value)}
-        />
+          onChange={(e)=>setCondition(e.target.value)}
+        >
+          <option value="Brand New">Brand New</option>
+          <option value="Used - Excellent">Used - Excellent</option>
+          <option value="Used - Good">Used - Good</option>
+          <option value="Used - Fair">Used - Fair</option>
+        </select>
         <label htmlFor="warehouseID">Warehouse ID: </label>
         <input
           placeholder='ex: 123456789'
@@ -54,7 +56,23 @@ export default function ItemListing() {
           onChange={(e) => setWarehouseID(e.target.value)}
         />
         <label htmlFor="itemPrice">Item Asking Price: </label>
+        <input
+          placeholder='ex: $10.99'
+          type='text'
+          id='itemPrice'
+          name='itemPrice'
+          value={itemPrice}
+          onChange={(e) => setItemPrice(e.target.value)}
+        />
         <label htmlFor="shippingPrice">Shipping Price: </label>
+        <input
+          placeholder='ex: $4.99'
+          type='text'
+          id='shippingPrice'
+          name='shippingPrice'
+          value={shippingPrice}
+          onChange={(e) => setShippingPrice(e.target.value)}
+        />
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>

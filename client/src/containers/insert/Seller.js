@@ -13,7 +13,7 @@ export default function Seller() {
     <div className="form-field">
         <h2>Register new seller</h2>
         <form onSubmit={submitted}>
-            <p>*Seller must already have an existing user account first. To create one, go to Insert > New User.</p>
+            <p>*Seller must already have an existing user account first. To first create one, go to Insert > User Account.</p>
             <label htmlFor="uid">User ID:</label>
             <input 
                 type="text" 
