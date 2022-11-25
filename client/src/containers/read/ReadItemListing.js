@@ -5,7 +5,7 @@ export default function ReadProductListing() {
   const[min, setMin] = useState("");
   const [max, setMax] = useState("");
   const[productCategory, setProductCategory] = useState("");
-
+  const[sellerID, setSellerID] = useState(""); 
   const submitted = (e) =>{
     e.preventDefault(); 
   }
@@ -21,6 +21,15 @@ export default function ReadProductListing() {
           id="item-id"
           value={itemID}
           onChange={(e) => setItemID(e.target.value)}
+        />
+
+        <h3>By Seller ID: </h3>
+        <input 
+          placeholder="ex. 123456"
+          type="text"
+          id="sellerID"
+          value={sellerID}
+          onChange={(e) => setSellerID(e.target.value)}
         />
 
         <h3>OR do a general search: </h3>

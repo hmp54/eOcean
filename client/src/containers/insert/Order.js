@@ -7,6 +7,9 @@ export default function Order() {
     const [orderCost, setOrderCost] = useState("");
     const[date, setDate] = useState(""); 
     const[orderStatus, setOrderStatus] = useState(""); 
+    const[tracking, setTracking] = useState("");
+    const[shippingProvider, setShippingProvider]  = useState(""); 
+    const[paymentStatus, setPaymentStatus] = useState(""); 
     
     const submitted = (e) =>{
         e.preventDefault(); 
@@ -30,7 +33,7 @@ export default function Order() {
             <input
                 placeholder="Buyer ID"
                 type="text"
-                id=""
+                id="buyerID"
                 name=""
                 value={buyerID}
                 onChange={(e) => setBuyerID(e.target.value)}
@@ -62,15 +65,44 @@ export default function Order() {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
             />
-            <label htmlFor="orderStatus">Order Status: </label>
+            <label htmlFor="shippingProvider">Shipping Provider</label>
+            <select
+                id="shippingProvider"
+                value={shippingProvider}
+                onChange={(e)=> setShippingProvider(e.target.value)}
+            >
+                <option value="Fedex">Fedex</option>
+                <option value="USPS">USPS</option>
+                <option value="UPS">UPS</option>
+            </select>
+            <label htmlFor="tracking">Tracking Number: </label>
+            <input
+                placeholder= "ex. 123456789-98"
+                type="text"
+                id="tracking"
+                name=""
+                value={tracking}
+                onChange={(e) => setTracking(e.target.value)}
+            />
+            <label htmlFor="orderStatus">Shipping Status: </label>
                 <select
                     id="orderStatus"
                     value={orderStatus}
                     onChange={(e)=> setOrderStatus(e.target.value)}
                 >
-                    <option value="Paid">Paid</option>
+                    <option value="OrderRecieved">Order Recieved</option>
                     <option value="Shipped">Shipped</option>
                     <option value="Delivered">Delivered</option>
+                </select>
+            <label htmlFor="paymentStatus">Payment Status: </label>
+                <select
+                    id="paymentStatus"
+                    value={paymentStatus}
+                    onChange={(e)=> setPaymentStatus(e.target.value)}
+                >
+                    <option value="Pending">Pending</option>
+                    <option value="Declined">Declined</option>
+                    <option value="Paid">Paid</option>
                 </select>
             <input className="submit" type="submit" value="Submit"/>
         </form>

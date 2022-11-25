@@ -5,10 +5,12 @@ export default function ReadUserAccount() {
   const[email, setEmail] = useState(""); 
   const[fname, setfname] = useState(""); 
   const[lname, setlname] = useState(""); 
+  const [showSeller, setShowSeller] = useState(false); 
 
   const submitted = (e) =>{
     e.preventDefault(); 
     console.log(UID + email); 
+    console.log(showSeller); 
   }
 
   return (
@@ -47,6 +49,15 @@ export default function ReadUserAccount() {
           value={lname}
           onChange={(e) => setlname(e.target.value)}
         />
+        <label htmlFor="showSeller">Also show user's seller status/information?</label>
+        <select
+            id="showSeller"
+            value={showSeller}
+            onChange={(e)=> setShowSeller(e.target.value)}
+        >
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>
