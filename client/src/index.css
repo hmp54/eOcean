@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.testMsg{
+  color: green;
+}
 .home{
   padding: 1rem;
 }
