@@ -4,7 +4,7 @@ COSC-280 final mySQL project
 
 ## launching the project:
 
-1. Project was created with Node JS and React JS.
+1. Project was created with Node JS and [React JS](https://reactjs.org/docs/create-a-new-react-app.html).
    -Install node.js: https://nodejs.org/en/
 
 2. Once Node JS is installed, navigate to project directory in terminal
