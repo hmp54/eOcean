@@ -15,7 +15,7 @@ COSC-280 final mySQL project
 4. To launch the app use command: `npm start`
    -If the app launches succesfully, it should open up a web browser with the app at some localhost address (typically localhost:3000).
 
-##What's in each folder:##
+## What's in each folder:
 
 **Client:** UI implementation - created with Javascript + React JS
 **Server:** Code that connects the UI to the MySQL database - created with Javascript, Node JS, MySql JS 2 (A library that allows SQL queries to be made in Javascript)
