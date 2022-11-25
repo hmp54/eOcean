@@ -5,6 +5,8 @@ export default function Order() {
     const [buyerID, setBuyerID] = useState("");
     const [sellerID, setSellerID] = useState("");
     const [orderCost, setOrderCost] = useState("");
+    const[date, setDate] = useState(""); 
+    const[orderStatus, setOrderStatus] = useState(""); 
     
     const submitted = (e) =>{
         e.preventDefault(); 
@@ -51,6 +53,25 @@ export default function Order() {
                 value={orderCost}
                 onChange={(e) => setOrderCost(e.target.value)}
             />
+            <label htmlFor="orderCost">Order Date (MM/DD/YYYY): </label>
+            <input
+                placeholder= "01/25/1999"
+                type="text"
+                id=""
+                name=""
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+            />
+            <label htmlFor="orderStatus">Order Status: </label>
+                <select
+                    id="orderStatus"
+                    value={orderStatus}
+                    onChange={(e)=> setOrderStatus(e.target.value)}
+                >
+                    <option value="Paid">Paid</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                </select>
             <input className="submit" type="submit" value="Submit"/>
         </form>
     </div>
@@ -64,4 +85,12 @@ buyer id
 seller id 
 order date
 order cost 
+
+        <select
+          value={productCategory}
+          onChange={(e)=> setCategory(e.target.value)}
+        >
+          <option value="shoes">Shoes</option>
+          <option value="hat">Hat</option>
+        </select>
 */

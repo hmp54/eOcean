@@ -7,6 +7,7 @@ export default function User() {
   const[cardNum, setcardNum] = useState("");
   const[billingAddress, setbillingAddress] = useState("");
   const[shippingAddress, setshippingAddress] = useState("");
+  const[isSeller, setIsSeller] = useState(""); 
   const date = new Date(); 
 
   const submitted = (e) =>{
@@ -72,6 +73,15 @@ export default function User() {
           value={shippingAddress}
           onChange = {(e) => setshippingAddress(e.target.value)}
         />
+        <label htmlFor="isASeller">Is this user also a seller?</label>
+        <select
+          id="isASeller"
+              value={isSeller}
+              onChange={(e)=> setIsSeller(e.target.value)}
+        >
+          <option value="seller">Yes</option>
+          <option value="notSeller">No</option>
+          </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>
