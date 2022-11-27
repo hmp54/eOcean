@@ -12,13 +12,14 @@ export default function ClientManager() {
     <div className="client">
       <div className="client__nav">
         <div className="client__nav-left">
+          <Link className="client__nav-link" to="my-listings">My Store</Link>
           <Link className="client__nav-link" to="sell">Sell</Link>
         </div>
         <div className="client__nav-middle">
           <img className="search" src={search} alt="search icon"/>
           <form className="client__searchbar-form">
             <input type="text" placeholder="Search for an item: ex. 'nike AF1's'"></input>
-            <img className="client__search-submit" value="Submit" src={go}/>
+            <Link to="listings"><img className="client__search-submit" value="Submit" src={go}/></Link>
           </form>
         </div>
         <div className="client__nav-right">

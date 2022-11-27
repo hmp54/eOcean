@@ -1,6 +1,6 @@
 import React from 'react'
 import ClientManager from './ClientSide/ClientManager'; 
-import Home from './Home'
+import Home from './OtherComponents/Home'
 import OptionMenu from './DatabaseSide/screens/OptionMenu';
 import Update from './DatabaseSide/containers/update/Update';
 import UpdateOrderInvoice from './DatabaseSide/containers/update/UpdateOrderInvoice'
@@ -33,12 +33,15 @@ import DBMSResponse from './DatabaseSide/screens/DBMSResponse'
 import Login from './ClientSide/pages/Login'
 import Register from './ClientSide/pages/Register'
 import CreateListing from './ClientSide/pages/CreateListing'
+import Listings from './ClientSide/pages/Listings'
+import MyListings from './ClientSide/pages/MyListings'
 import {
   Link,
   Routes,
   Route,
   Outlet
 } from "react-router-dom"; 
+import Footer from './OtherComponents/Footer';
 
 function App() {
   return (
@@ -58,8 +61,9 @@ function App() {
           <Route path="login" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
           <Route path="sell" element={<CreateListing/>}/>
+          <Route path="listings" element={<Listings/>}/>
+          <Route path="my-listings" element={<MyListings/>}/>
         </Route>
-
 
         <Route path="/database" element={<OptionMenu/>}>
           <Route index element={<Home/>}/>
@@ -102,6 +106,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <Footer/>
     </div>
   );
 }

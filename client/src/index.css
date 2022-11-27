@@ -2,7 +2,7 @@
   --darkest: #111111;
   --dark-accent:#cc0000;
   --mid-grey: #767676; 
-  --light-grey: #767676; 
+  --light-grey: #b8b8b8; 
 }
 
 body {
@@ -171,4 +171,13 @@ a{
 
 .dummy-home{
   padding: 1rem 3rem;
+}
+
+.dummy-home h3{
+  color: var(--dark-accent)
+}
+
+.dummy-home p{
+  font-size: 1.1em;
+  font-weight: 550;
 }
