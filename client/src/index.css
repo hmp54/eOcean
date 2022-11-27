@@ -27,6 +27,12 @@ a{
   color: green;
 }
 
+.msg-small{
+  font-size: 0.8em;
+  padding: 0.1rem;
+  margin: 0.1rem;
+}
+
 .main__nav-bar{
   width: 100vw; 
   background-color: var(--darkest);
@@ -107,6 +113,10 @@ a{
 .container__insert{
   display: flex;
   flex-direction: column;
+}
+
+.insert__flname input{
+  margin-right: 0.5rem;
 }
 
 .container__header{

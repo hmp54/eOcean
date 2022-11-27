@@ -41,7 +41,6 @@ import {
   Route,
   Outlet
 } from "react-router-dom"; 
-import Footer from './OtherComponents/Footer';
 
 function App() {
   return (
@@ -106,7 +105,6 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      <Footer/>
     </div>
   );
 }

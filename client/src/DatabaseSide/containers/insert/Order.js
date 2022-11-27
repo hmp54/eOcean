@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import Axios from 'axios'; 
 export default function Order() {
     const [itemID, setItemID] = useState(""); 
     const [buyerID, setBuyerID] = useState("");
@@ -14,6 +14,18 @@ export default function Order() {
     const submitted = (e) =>{
         e.preventDefault(); 
         console.log(itemID + buyerID + sellerID + orderCost)
+        console.log("Attempting to post to localhost:3001/create-new-order");
+        Axios.post("http://localhost:3001/create-new-order",{
+            itemID : itemID,
+            buyerID : buyerID, 
+            sellerID : sellerID, 
+            date : date, 
+            orderCost : orderCost, 
+            orderStatus : orderStatus, 
+            tracking : tracking,
+            shippingProvider : shippingProvider, 
+            paymentStatus : paymentStatus
+        })
     }
 
     return (
@@ -94,15 +106,14 @@ export default function Order() {
                     <option value="Shipped">Shipped</option>
                     <option value="Delivered">Delivered</option>
                 </select>
-            <label htmlFor="paymentStatus">Payment Status: </label>
+            <label htmlFor="paymentStatus">Order paid? </label>
                 <select
                     id="paymentStatus"
                     value={paymentStatus}
                     onChange={(e)=> setPaymentStatus(e.target.value)}
                 >
-                    <option value="Pending">Pending</option>
-                    <option value="Declined">Declined</option>
-                    <option value="Paid">Paid</option>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
                 </select>
             <input className="submit" type="submit" value="Submit"/>
         </form>

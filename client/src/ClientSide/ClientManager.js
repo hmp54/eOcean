@@ -6,6 +6,7 @@ import {
 import "./ClientManager.css"
 import search from '../assets/search.png'
 import go from '../assets/right-arrow.png'
+import Footer from '../OtherComponents/Footer'
 
 export default function ClientManager() {
   return (
@@ -28,6 +29,7 @@ export default function ClientManager() {
         </div>
       </div>
       <Outlet/>
+      <Footer/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link, Outlet} from "react-router-dom"; 
 import DBMSResponse from './DBMSResponse';
-
+import Footer from '../../OtherComponents/Footer'
 export default function OptionMenu() {
   return (
       <div>
@@ -14,6 +14,7 @@ export default function OptionMenu() {
           </nav>
           <Outlet/>
           <DBMSResponse/>
+          <Footer/>
       </div>
   )
 } 
