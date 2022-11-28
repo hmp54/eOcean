@@ -25,7 +25,6 @@ export default function ReadUserAccount() {
       lInitial : lInitial
     })
   .then(resp => {
-    console.log("uid" + UID)
     setMysqlQuery(String(resp.data.query));
     setdbResponse(mapJSON(resp.data.result)); 
 })

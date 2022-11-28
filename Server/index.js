@@ -194,41 +194,60 @@ app.post('/get-user-account', (req, res)=>{
     const fInitial = req.body.fInitial;
     const lInitial = req.body.lInitial; 
 
-    console.log(UID + " email:" + email + " fname:" + fname + " lname:" + lname + " seller:" + seller);
-    console.log("initials: " + fInitial + lInitial)
-    console.log("Uid: " + UID.length + "seller: " + seller)
     let theQuery;
     let values; 
 
-    if (seller && UID.length > 0){
-        console.log("OPTION 1")
+    if ((seller) && UID.length > 0){
+        console.log("OPTION ")
         theQuery = 'SELECT * FROM users JOIN sellers ON users.user_id = sellers.seller_id WHERE users.user_id=?'
         values = [UID,UID];
     }
-    else if(!seller && UID.length > 0){
-        console.log("OPTION 2")
+    
+    if((!seller) && UID.length > 0){
+        console.log("OPTION 1")
         theQuery = 'SELECT * FROM users WHERE users.user_id=?';
         values = [UID]
-    } else if(fname.length > 0 && lname.length > 0){
-        console.log("OPTION 3")
+    } 
+    
+    if((!seller) && (fname.length > 0 &&  lname.length > 0)){
+        console.log("OPTION 2")
         theQuery = "SELECT * FROM users WHERE (first_name = '?' AND last_name='?')"
-    } else if(fInitial.length > 0 && lInitial > 0){
+        values = [fname, lname]
+    } 
+    
+    if((seller) && (fname.length > 0 && lname.length > 0)){
+        console.log("OPTION 3")
+        theQuery = "SELECT * FROM users JOIN sellers WHERE (users.first_name='?' AND users.last_name='?');"
+        values = [fname, lname]
+    } 
+
+
+    if((!seller) && (fInitial.length > 0 && lInitial.length > 0)){
         console.log("OPTION 4")
         theQuery = "SELECT * FROM users WHERE (first_name LIKE '?%' AND last_name LIKE '?%')";
         values = [fInitial, lInitial]
     }
+    
+    if((seller) && (fInitial.length > 0 && lInitial.length > 0)){
+        console.log("OPTION 5")
+        theQuery = "SELECT * FROM users JOIN sellers WHERE (first_name LIKE '?%' AND last_name LIKE '?%')";
+        values = [fInitial, lInitial]
+    }
 
-    console.log(theQuery); 
-    console.log("Sending query")
-
-    db.query(
-        theQuery,
-        values,
-        (err, result)=>{
-            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
-            else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
-        }
-    )
+    if(!(typeof theQuery == 'undefined')){
+        db.query(
+            theQuery,
+            values,
+            (err, result)=>{
+                if(err) {
+                    console.log(err)
+                    res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+                } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+            }
+        )
+    } else{
+        res.send({result : "❓", query : undefined, dbResponse: "Unable to create query. Please double-check the forms and try again!"})
+    }
 })
 
 /*

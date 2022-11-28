@@ -13,7 +13,6 @@ export default function DBMSResponse() {
         <h3>Database Response: </h3>
         <p>{dbResponse}</p>
         <button onClick = {()=>{   
-          console.log("hello")
           setdbResponse("--"); 
           setMysqlQuery("--"); 
         }}>reset</button>

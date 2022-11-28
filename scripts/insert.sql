@@ -32,10 +32,10 @@ VALUES
     ("Supreme Jackets", "Jackets", "Founded by James Jebbia, Supreme is known for its connections to the skating community and its snarky take on popular culture. Supreme jackets typically have a casual, athletic design in keeping with the brand's sporty roots. ")
 ;
 
-INSERT INTO ItemListings(uploader_id, item_description, item_image, upload_date, item_price, shipping_price, item_condition)
+INSERT INTO ItemListings(uploader_id, product_id, item_image, upload_date, item_price, shipping_price, item_condition)
 VALUES
-    (1, "White nike AF1", null, STR_TO_DATE('01/05/2010', '%m/%d/%Y'), 5.99, 1.99, "gently used"),
-    (2, "Black leather Supreme jacket", null, STR_TO_DATE('02/15/2022', '%m/%d/%Y'), 11.99, 1.99, "like new"); 
+    (1, 1, null, STR_TO_DATE('01/05/2010', '%m/%d/%Y'), 5.99, 1.99, "gently used"),
+    (2, 2, null, STR_TO_DATE('02/15/2022', '%m/%d/%Y'), 11.99, 1.99, "like new"); 
 
 INSERT INTO ItemInfo(product_id, warehouse_id)
 VALUES
@@ -46,6 +46,7 @@ VALUES
 INSERT INTO Orders(order_id, item_id, buyer_id, seller_id, order_date, order_cost)
 VALUES
     (1, 1, 1, 2, STR_TO_DATE('02/15/2022', '%m/%d/%Y'), 29.99)
+    (2, 2, 2, 2, STR_TO_DATE('02/15/2022', '%m/%d/%Y'), 29.99)
 ;
 
 INSERT INTO OrderStatus(order_id, tracking_id, paid_status, shipping_status, shipping_provider)

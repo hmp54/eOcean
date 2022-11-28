@@ -24,7 +24,7 @@ CREATE TABLE Sellers(
     seller_id INT NOT NULL,
     number_of_items_sent INT NOT NULL,
     number_of_items_sold INT NOT NULL,
-    FOREIGN KEY (seller_id) references Users(user_id)
+    FOREIGN KEY (seller_id) references Users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE ProductCategories (
@@ -52,8 +52,8 @@ CREATE TABLE ItemListings (
     shipping_price FLOAT(7,2) NOT NULL,
     item_condition VARCHAR(20) NOT NULL,
     PRIMARY KEY(item_id),
-    FOREIGN KEY(uploader_id) REFERENCES Users(user_id),
-    FOREIGN KEY(product_id) REFERENCES Products(product_id)
+    FOREIGN KEY(uploader_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY(product_id) REFERENCES Products(product_id) ON DELETE CASCADE
 );
 
 CREATE TABLE ItemInfo (
@@ -61,8 +61,8 @@ CREATE TABLE ItemInfo (
     product_id INTEGER NOT NULL,
     warehouse_id INTEGER NOT NULL,
     PRIMARY KEY(item_id, product_id),
-    FOREIGN KEY(product_id) REFERENCES Products(product_id),
-    FOREIGN KEY(warehouse_id) REFERENCES Warehouses(warehouse_id)
+    FOREIGN KEY(product_id) REFERENCES Products(product_id)  ON DELETE CASCADE,
+    FOREIGN KEY(warehouse_id) REFERENCES Warehouses(warehouse_id)  ON DELETE CASCADE
 );
 
 CREATE TABLE Orders(
@@ -74,8 +74,8 @@ CREATE TABLE Orders(
     order_cost DECIMAL(10,2) NOT NULL,
     PRIMARY KEY(order_id, item_id),
     FOREIGN KEY(item_id) references ItemInfo(item_id),
-    FOREIGN KEY(buyer_id) references Users(user_id),
-    FOREIGN KEY(seller_id) references Users(user_id)
+    FOREIGN KEY(buyer_id) references Users(user_id) ON DELETE CASCADE, 
+    FOREIGN KEY(seller_id) references Users(user_id)  ON DELETE CASCADE
 );
 
 CREATE TABLE OrderStatus(
@@ -85,13 +85,13 @@ CREATE TABLE OrderStatus(
     shipping_status VARCHAR(45) NOT NULL,
     shipping_provider VARCHAR(45) NOT NULL,
     PRIMARY KEY(order_id),
-    FOREIGN KEY(order_id) references Orders(order_id)
+    FOREIGN KEY(order_id) references Orders(order_id)  ON DELETE CASCADE
 );
 
 CREATE TABLE ItemSeller (
 	item_id INTEGER NOT NULL,
     seller_id INTEGER NOT NULL,
     PRIMARY KEY(item_id),
-    FOREIGN KEY(item_id) REFERENCES ItemInfo(item_id),
-    FOREIGN KEY(seller_id) REFERENCES Users(user_id)
+    FOREIGN KEY(item_id) REFERENCES ItemInfo(item_id)  ON DELETE CASCADE,
+    FOREIGN KEY(seller_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );

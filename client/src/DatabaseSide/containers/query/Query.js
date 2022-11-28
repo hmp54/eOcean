@@ -22,8 +22,7 @@ export default function Query() {
     }).then(resp =>{
      console.log(resp); 
       setMysqlQuery(String(resp.data.query));
-      setdbResponse(mapJSON(resp.data.result)); 
-      
+      setdbResponse(() =>mapJSON(resp.data.result)); 
     })
   }
 

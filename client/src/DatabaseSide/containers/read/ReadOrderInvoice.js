@@ -27,22 +27,6 @@ export default function SellerAccount() {
           value={orderID}
           onChange={(e) => setorderID(e.target.value)}
         />
-        <label htmlFor="itemID">Item ID: </label>
-        <input 
-          placeholder="ex. 123456"
-          type="text"
-          id="itemID"
-          value={itemID}
-          onChange={(e) => setItemID(e.target.value)}
-        />
-        <label htmlFor="userID">User ID: </label>
-        <input 
-          placeholder="ex. 123456"
-          type="text"
-          id="userID"
-          value={userID}
-          onChange={(e) => setUserID(e.target.value)}
-        />
         <h3>Advanced search options:</h3> 
         <div className="read__orderDate">
           <div>
