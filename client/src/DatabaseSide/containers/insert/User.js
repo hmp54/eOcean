@@ -19,8 +19,8 @@ export default function User() {
       lname : lname, 
       email: email, 
       uPassword : uPassword, 
-      billingAddress : billingAddress }).then(() =>{
-        console.log("Succesfully added new user to database.");
+      billingAddress : billingAddress }).then(resp =>{
+        console.log(resp.data);
       })
   }
 
@@ -82,6 +82,7 @@ export default function User() {
           value={isSeller}
           onChange={(e)=> setIsSeller(e.target.value)}
         >
+          <option></option>
           <option value="seller">Yes</option>
           <option value="notSeller">No</option>
         </select>

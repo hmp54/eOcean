@@ -72,6 +72,7 @@ export default function SellerAccount() {
             value={orderStatus}
             onChange={(e)=> setOrderStatus(e.target.value)}
         >
+            <option></option>
             <option value="Paid">Paid</option>
             <option value="Shipped">Shipped</option>
             <option value="Delivered">Delivered</option>

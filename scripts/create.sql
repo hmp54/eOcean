@@ -44,15 +44,16 @@ CREATE TABLE Products(
 
 CREATE TABLE ItemListings (
 	item_id INTEGER NOT NULL AUTO_INCREMENT,
+    product_id INT NOT NULL, 
     uploader_id INTEGER NOT NULL,
-    item_description VARCHAR(200) NOT NULL,
     item_image blob,
-    upload_date DATE NOT NULL,
+    upload_date VARCHAR(10) NOT NULL,
     item_price FLOAT(7,2) NOT NULL,
     shipping_price FLOAT(7,2) NOT NULL,
     item_condition VARCHAR(20) NOT NULL,
     PRIMARY KEY(item_id),
-    FOREIGN KEY(uploader_id) REFERENCES Users(user_id)
+    FOREIGN KEY(uploader_id) REFERENCES Users(user_id),
+    FOREIGN KEY(product_id) REFERENCES Products(product_id)
 );
 
 CREATE TABLE ItemInfo (
@@ -80,7 +81,7 @@ CREATE TABLE Orders(
 CREATE TABLE OrderStatus(
     order_id INT NOT NULL AUTO_INCREMENT, 
     tracking_id INT NOT NULL,
-    paid_status BOOLEAN NOT NULL,
+    paid_status VARCHAR(10) NOT NULL,
     shipping_status VARCHAR(45) NOT NULL,
     shipping_provider VARCHAR(45) NOT NULL,
     PRIMARY KEY(order_id),

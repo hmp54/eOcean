@@ -1,14 +1,45 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import Axios from 'axios'; 
 
 export default function ProductType() {
   const[productName, setName] = useState("");
   const[productCategory, setCategory] = useState(""); //want to be able to fetch available categories from the database and display them
   const[productDescription, setDescription] = useState(""); 
+  const[categoryList, setCategoryList]= useState([]); 
 
+  const testCategories = ["", "Hat", "Shoes", "Women's Dresses"]
+  const renderCategories = testCategories.map((item, index) => 
+    <option key={index}>{item}</option>
+  );
+
+  const getCategoryList = () =>{ 
+    console.log("Getting category list: ")
+      Axios.get("http://localhost:3001/get-categories").then((resp) =>{
+          setCategoryList(resp.data); 
+          console.log(categoryList);
+      })
+  }
+
+
+  const submitted = (e) =>{
+    e.preventDefault(); 
+    console.log("Attempting to post to localhost:3001/create-new-order");
+    Axios.post("http://localhost:3001/create-new-product",{
+        productName : productName,
+        productCategory : productCategory, 
+        productDescription : productDescription
+    }).then(resp => console.log(resp.data))
+}
+  
+
+  useEffect(()=>{
+    getCategoryList(); 
+  }, []);
+  
   return (
     <div className="form-field">
       <h2>Create a New Product Type:</h2>
-      <form>
+      <form  onSubmit={submitted}>
         <label htmlFor='productName'>Product Name:</label>
         <input
           placeholder='for example: Nike AF1 Shoes'
@@ -24,8 +55,7 @@ export default function ProductType() {
           value={productCategory}
           onChange={(e)=> setCategory(e.target.value)}
         >
-          <option value="shoes">Shoes</option>
-          <option value="hat">Hat</option>
+          {renderCategories}
         </select>
         <label htmlFor='productDescription'>Product Description:</label>
         <input
@@ -35,7 +65,6 @@ export default function ProductType() {
           value={productDescription}
           onChange = {(e) => setDescription(e.target.value)}
         />
-        
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>

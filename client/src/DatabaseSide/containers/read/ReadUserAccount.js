@@ -55,6 +55,7 @@ export default function ReadUserAccount() {
             value={showSeller}
             onChange={(e)=> setShowSeller(e.target.value)}
         >
+            <option></option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
         </select>

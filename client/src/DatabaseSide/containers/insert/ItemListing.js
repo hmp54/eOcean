@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import Axios from 'axios'; 
 
 export default function ItemListing() {
   const [sellerID, setSellerID] = useState("");
@@ -11,7 +12,14 @@ export default function ItemListing() {
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log("Created item listing:" + sellerID + productID + condition)
+    Axios.post("http://localhost:3001/create-item-listing",{
+      sellerID : sellerID,
+      productID :productID,
+      condition :condition, 
+      warehouse : warehouse, 
+      itemPrice : itemPrice,
+      shippingPrice : shippingPrice
+    }).then((resp) =>{console.log(resp.data)})
   }
 
   return (
@@ -42,6 +50,7 @@ export default function ItemListing() {
           value={condition}
           onChange={(e)=>setCondition(e.target.value)}
         >
+          <option></option>
           <option value="Brand New">Brand New</option>
           <option value="Used - Excellent">Used - Excellent</option>
           <option value="Used - Good">Used - Good</option>
@@ -53,6 +62,7 @@ export default function ItemListing() {
             value={warehouse}
             onChange={(e)=> setWarehouse(e.target.value)}
         >
+            <option></option>
             <option value="Washington DC - 1">Washington DC - 1</option>
             <option value="Portland - 4">Portland - 4</option>
             <option value="Philadelphia - 2">Philadelphia - 2</option>

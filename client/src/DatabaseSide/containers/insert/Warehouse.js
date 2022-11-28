@@ -1,13 +1,20 @@
 import React, {useState} from 'react'
+import Axios from 'axios'; 
 
 export default function Warehouse() {
   const [city, setCity] = useState(""); 
   const [state, setState] = useState(""); 
-  const {country, setCountry} = useState(""); 
+  const [country, setCountry] = useState(""); 
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log("Created item listing:" + city + state + country)
+    Axios.post("http://localhost:3001/create-warehouse",{
+      city : city,
+      state : state,
+      country : country
+    }).then(resp=>{
+      console.log(resp.data); 
+    })
   }
 
   return (

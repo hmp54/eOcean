@@ -64,6 +64,7 @@ export default function ReadProductListing() {
           value={showSeller}
           onChange={(e)=> setShowSeller(e.target.value)}
         >
+          <option></option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select>

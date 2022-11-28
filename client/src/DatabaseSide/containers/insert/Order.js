@@ -10,21 +10,29 @@ export default function Order() {
     const[tracking, setTracking] = useState("");
     const[shippingProvider, setShippingProvider]  = useState(""); 
     const[paymentStatus, setPaymentStatus] = useState(""); 
-    
+
+
+    //creates a new entry in order and order status
     const submitted = (e) =>{
         e.preventDefault(); 
-        console.log(itemID + buyerID + sellerID + orderCost)
         console.log("Attempting to post to localhost:3001/create-new-order");
         Axios.post("http://localhost:3001/create-new-order",{
             itemID : itemID,
             buyerID : buyerID, 
             sellerID : sellerID, 
             date : date, 
-            orderCost : orderCost, 
+            orderCost : orderCost
+        }).then(resp =>{
+            console.log(resp.data);
+          })
+
+        Axios.post("http://localhost:3001/create-new-order-status",{
             orderStatus : orderStatus, 
             tracking : tracking,
             shippingProvider : shippingProvider, 
             paymentStatus : paymentStatus
+        }).then(resp=>{
+            console.log(resp.data)
         })
     }
 
@@ -83,9 +91,10 @@ export default function Order() {
                 value={shippingProvider}
                 onChange={(e)=> setShippingProvider(e.target.value)}
             >
-                <option value="Fedex">Fedex</option>
-                <option value="USPS">USPS</option>
-                <option value="UPS">UPS</option>
+                <option></option>
+                <option>Fedex</option>
+                <option>USPS</option>
+                <option>UPS</option>
             </select>
             <label htmlFor="tracking">Tracking Number: </label>
             <input
@@ -102,18 +111,21 @@ export default function Order() {
                     value={orderStatus}
                     onChange={(e)=> setOrderStatus(e.target.value)}
                 >
-                    <option value="OrderRecieved">Order Recieved</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Delivered">Delivered</option>
+                    <option></option>
+                    <option>Order Recieved</option>
+                    <option>Shipped</option>
+                    <option>Delivered</option>
                 </select>
-            <label htmlFor="paymentStatus">Order paid? </label>
+            <label htmlFor="paymentStatus">Order paid?</label>
                 <select
                     id="paymentStatus"
                     value={paymentStatus}
                     onChange={(e)=> setPaymentStatus(e.target.value)}
                 >
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
+                    <option></option>
+                    <option value= "true">Paid</option>
+                    <option value= "false" >Not paid</option>
+                    
                 </select>
             <input className="submit" type="submit" value="Submit"/>
         </form>

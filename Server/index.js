@@ -42,8 +42,9 @@ app.post('/create-new-user', (req, res) => {
         }
     }
    ); 
-})
 
+   
+})
 
 app.post('/create-new-order', (req,res) => {
     const itemID = req.body.itemID;
@@ -51,47 +52,102 @@ app.post('/create-new-order', (req,res) => {
     const sellerID = req.body.sellerID; 
     const date = req.body.date; 
     const orderCost = req.body.orderCost; 
-    const orderStatus = req.body.orderStatus;
-    const tracking = req.body.tracking; 
-    const shippingProvider = req.body.shippingProvider; 
-    const paymentStatus = req.body.paymentStatus;
+
 
     db.query(
         'INSERT INTO orders(item_id, buyer_id, seller_id, order_date, order_cost) VALUES (?,?,?,?,?)',
         [itemID, buyerID, sellerID, date, orderCost],
         (err, result) => {
             if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: ")
+            else res.send("Successfully created new entry in TABLE: ORDERS ")
         }
     )
 })
 
-app.post('/create-product-type', (req,res) => {
+app.post('/create-new-order-status', (req, res) =>{
+    const orderStatus = req.body.orderStatus;
+    const tracking = req.body.tracking; 
+    const shippingProvider = req.body.shippingProvider; 
+    const paymentStatus = req.body.paymentStatus;
+    console.log("attempting to create new tracking info: ")
+    db.query(
+        'INSERT INTO orderstatus(tracking_id, paid_status, shipping_status, shipping_provider) VALUES (?,?,?,?)',
+        [tracking, paymentStatus, orderStatus, shippingProvider],
+        (err, result) => {
+            if(err) console.log(err)
+            else res.send("Successfully created new entry in TABLE: ORDERSTATUS ")
+        }
+    )
+})
+
+app.post('/create-new-product', (req,res) => {
     const productName = req.body.productName; 
     const productCategory = req.body.productCategory; 
     const productDescription = req.body.productDescription; 
+
+    db.query(
+        'INSERT INTO Products(product_name, product_category, product_description) VALUES(?,?,?)',
+        [productName, productCategory, productDescription],
+        (err, result) => {
+            if(err) console.log(err)
+            else res.send("Successfully created new entry in TABLE: PRODUCTS")
+        }
+    )
 })
 
 app.post('/create-product-category', (req,res) => {
     const categoryName= req.body.categoryName; 
+    db.query(
+        'INSERT INTO productCategories(category_name) VALUES(?)',
+        [categoryName],
+        (err, result) => {
+            if(err) console.log(err)
+            else res.send("Successfully created new entry in TABLE: PRODUCTCATEGORIES")
+        }
+    )
 })
 
 app.post('/create-item-listing', (req,res) => {
     const sellerID = req.body.sellerID;
-    const productId = req.body.productID; 
+    const productID = req.body.productID; 
     const condition = req.body.condition; 
     const warehouse = req.body.warehouse; 
     const itemPrice = req.body.itemPrice; 
     const shippingPrice = req.body.shippingPrice; 
+    const item_image = "0101010101"; 
+
+    db.query(
+        'INSERT INTO itemlistings(uploader_id, product_id, item_image, upload_date, item_price, shipping_price, item_condition) VALUES (?,?,?,?,?,?,?)',
+        [sellerID, productID, item_image, todaysDate, itemPrice, shippingPrice, condition],
+        (err, result)=>{
+            if(err) console.log(err)
+            else res.send("Successfully created new entry in TABLE: ItemListings")          
+        })
 })
 
 app.post('/create-warehouse', (req,res) => {
     const city = req.body.city;
     const country = req.body.country; 
     const state = req.body.state; 
+    db.query(
+        'INSERT INTO warehouses(city, the_state, country) VALUES (?,?,?)',
+        [city, state, country],
+        (err, result) => {
+            if(err) console.log(err)
+            else res.send("Successfully created new entry in TABLE: WAREHOUSE")
+        }
+    )
 })
 
-
+app.get('/get-categories', (req,res)=>{
+    db.query(
+        'SELECT * FROM productcategories',
+        (err, result) => {
+            if(err) console.log(err)
+            else res.send(result)
+        }
+    )
+})
 /*
 
     db.query(

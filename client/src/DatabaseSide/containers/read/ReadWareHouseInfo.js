@@ -55,6 +55,7 @@ export default function ReadWareHouseInfo() {
                 value={showItems}
                 onChange={(e)=> setShowItems(e.target.value)}
             >
+                <option></option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
