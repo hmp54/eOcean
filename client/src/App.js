@@ -48,7 +48,6 @@ function App() {
       <nav className = "main__nav-bar">
         <a href="/"><h1 href="/">eOcean</h1></a>
         <ul>
-          <li><Link to="/client" className="main__link">CLIENT</Link></li>
           <li><Link to="/database" className="main__link">DATABASE MANAGER</Link></li>
         </ul>
       </nav>

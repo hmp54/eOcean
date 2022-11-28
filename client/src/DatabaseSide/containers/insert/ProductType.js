@@ -54,14 +54,13 @@ export default function ProductType() {
           onChange = {(e) => setName(e.target.value)}
         />
         <label htmlFor='productCategory'>Product Category:</label>
-        <p>*if a product category you need is not listed here, you can create a new one under "product category" tab</p>
-
-        <select
+        <input
+          placeholder='for example: Nike AF1 Shoes'
+          type='text'
+          id='productCategory'
           value={productCategory}
-          onChange={(e)=> setCategory(e.target.value)}
-        >
-          {renderCategories}
-        </select>
+          onChange = {(e) => setCategory(e.target.value)}
+        />
         <label htmlFor='productDescription'>Product Description:</label>
         <input
           placeholder='for example: white low-top tennis shoes.'
