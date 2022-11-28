@@ -132,6 +132,11 @@ a{
   padding: 1rem;
 }
 
+.container__response p{
+  color: green;
+  font-weight: 600; 
+}
+
 .container__response h3{
   color: #777;
 }

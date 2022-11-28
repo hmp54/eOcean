@@ -29,7 +29,7 @@ import DeleteProductCategory from './DatabaseSide/containers/delete/DeleteProduc
 import DeleteProductType from './DatabaseSide/containers/delete/DeleteProductType'
 import DeleteUserAccount from './DatabaseSide/containers/delete/DeleteUserAccount'
 import DeleteWarehouse from './DatabaseSide/containers/delete/DeleteWarehouse'
-import DBMSResponse from './DatabaseSide/screens/DBMSResponse'
+
 import Login from './ClientSide/pages/Login'
 import Register from './ClientSide/pages/Register'
 import CreateListing from './ClientSide/pages/CreateListing'

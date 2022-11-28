@@ -10,7 +10,7 @@ const mysql = require('mysql2');
 const todaysDate = (new Date()).toLocaleString().slice(0,10); 
 
 app.listen(3001, ()=>{
-    console.log("Success! Running server on port 3001.");
+    console.log("Running server on port 3001.");
 }); 
 
 app.use(cors());
@@ -36,9 +36,9 @@ app.post('/create-new-user', (req, res) => {
     [fname, lname, email, uPassword, billingAddress, todaysDate],
     (err, result) =>{
         if(err)
-            console.log(err)
+            res.send("Uh-oh, something went wrong.  " + err)
         else {
-            res.send("Values successfully inserted in TABLE USERS: ")
+            res.send("Success! New user account created. 🎉")
         }
     }
    ); 
@@ -58,8 +58,8 @@ app.post('/create-new-order', (req,res) => {
         'INSERT INTO orders(item_id, buyer_id, seller_id, order_date, order_cost) VALUES (?,?,?,?,?)',
         [itemID, buyerID, sellerID, date, orderCost],
         (err, result) => {
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: ORDERS ")
+            if(err) res.send("Uh-oh, something went wrong. " + err)
+            else res.send("Success! Created a new order invoice 🎉")
         }
     )
 })
@@ -74,8 +74,8 @@ app.post('/create-new-order-status', (req, res) =>{
         'INSERT INTO orderstatus(tracking_id, paid_status, shipping_status, shipping_provider) VALUES (?,?,?,?)',
         [tracking, paymentStatus, orderStatus, shippingProvider],
         (err, result) => {
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: ORDERSTATUS ")
+            if(err) res.send("Uh-oh, something went wrong. " + err)
+            else res.send("Success! Created a new order status 🎉")
         }
     )
 })
@@ -89,8 +89,8 @@ app.post('/create-new-product', (req,res) => {
         'INSERT INTO Products(product_name, product_category, product_description) VALUES(?,?,?)',
         [productName, productCategory, productDescription],
         (err, result) => {
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: PRODUCTS")
+            if(err) res.send("Uh-oh, something went wrong. " + err)
+            else res.send("Success! Created a new product type🎉")
         }
     )
 })
@@ -101,8 +101,8 @@ app.post('/create-product-category', (req,res) => {
         'INSERT INTO productCategories(category_name) VALUES(?)',
         [categoryName],
         (err, result) => {
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: PRODUCTCATEGORIES")
+            if(err) res.send("Uh-oh, something went wrong. " + err)
+            else res.send("Success! Created a new product category 🎉")
         }
     )
 })
@@ -120,8 +120,8 @@ app.post('/create-item-listing', (req,res) => {
         'INSERT INTO itemlistings(uploader_id, product_id, item_image, upload_date, item_price, shipping_price, item_condition) VALUES (?,?,?,?,?,?,?)',
         [sellerID, productID, item_image, todaysDate, itemPrice, shippingPrice, condition],
         (err, result)=>{
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: ItemListings")          
+            if(err) res.send("Uh-oh, something went wrong. " + err)
+            else res.send("Success! Created a new item listing. Let the sales begin 🎉")
         })
 })
 
@@ -133,8 +133,8 @@ app.post('/create-warehouse', (req,res) => {
         'INSERT INTO warehouses(city, the_state, country) VALUES (?,?,?)',
         [city, state, country],
         (err, result) => {
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: WAREHOUSE")
+            if(err) res.send("Uh-oh, something went wrong. " + err)
+            else res.send("Success! Created a new warehouse location. 🎉")
         }
     )
 })
@@ -143,7 +143,7 @@ app.get('/get-categories', (req,res)=>{
     db.query(
         'SELECT * FROM productcategories',
         (err, result) => {
-            if(err) console.log(err)
+            if(err) res.send("Uh-oh, something went wrong.  " + err)
             else res.send(result)
         }
     )

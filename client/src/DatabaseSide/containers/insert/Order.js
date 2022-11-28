@@ -1,6 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
+
+
 export default function Order() {
+    const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
     const [itemID, setItemID] = useState(""); 
     const [buyerID, setBuyerID] = useState("");
     const [sellerID, setSellerID] = useState("");
@@ -24,6 +28,8 @@ export default function Order() {
             orderCost : orderCost
         }).then(resp =>{
             console.log(resp.data);
+            setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
+            setdbResponse(resp.data); 
           })
 
         Axios.post("http://localhost:3001/create-new-order-status",{

@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function ProductCategory() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const [categoryName, setCategoryName] = useState(""); 
 
   const submitted = (e) =>{
@@ -9,7 +11,8 @@ export default function ProductCategory() {
     Axios.post("http://localhost:3001/create-product-category",{
       categoryName : categoryName
     }).then(resp=>{
-      console.log(resp.data)
+      setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
+      setdbResponse(resp.data); 
     })
   }
   

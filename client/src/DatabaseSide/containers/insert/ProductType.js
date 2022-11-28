@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState, useContext, useEffect }  from 'react'
 import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function ProductType() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[productName, setName] = useState("");
   const[productCategory, setCategory] = useState(""); //want to be able to fetch available categories from the database and display them
   const[productDescription, setDescription] = useState(""); 
@@ -28,7 +30,10 @@ export default function ProductType() {
         productName : productName,
         productCategory : productCategory, 
         productDescription : productDescription
-    }).then(resp => console.log(resp.data))
+    }).then(resp => {
+      setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
+      setdbResponse(resp.data); 
+    })
 }
   
 

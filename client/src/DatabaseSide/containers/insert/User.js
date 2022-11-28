@@ -1,7 +1,9 @@
-import React, { useState }  from 'react'
+import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function User() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[fname, setfname] = useState("");
   const[lname, setlname] = useState("");
   const[email, setemail] = useState("");
@@ -11,7 +13,8 @@ export default function User() {
 
   //sends form variables to back-ensd upom form submission
   const submitted = (e) =>{
-    e.preventDefault(); 
+    e.preventDefault();  
+
     console.log("Created new user:" + fname + lname + email + billingAddress); 
     console.log("Attempting to post to localhost:3001/create-new-user");
     Axios.post("http://localhost:3001/create-new-user", {
@@ -20,7 +23,8 @@ export default function User() {
       email: email, 
       uPassword : uPassword, 
       billingAddress : billingAddress }).then(resp =>{
-        console.log(resp.data);
+        setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
+        setdbResponse(resp.data); 
       })
   }
 

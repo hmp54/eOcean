@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {DbmsContext} from '../screens/OptionMenu'
 
 export default function DBMSResponse() {
+  const {dbResponse, mysqlQuery} = useContext(DbmsContext);
+
   return (
     <div className="container__response">
         <h2>Console:</h2>
         <h3>SQL Query Sent to database:</h3>
-        <p>//output the SQL query sent to the database here</p>
+        <p>{mysqlQuery}</p>
         <h3>Database Response: </h3>
-        <p>//output result from SQL query here</p>
+        <p>{dbResponse}</p>
     </div>
   )
 }
