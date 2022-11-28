@@ -28,8 +28,8 @@ export default function Order() {
             orderCost : orderCost
         }).then(resp =>{
             console.log(resp.data);
-            setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
-            setdbResponse(resp.data); 
+            setMysqlQuery(resp.data.query)
+            setdbResponse(resp.data.dbResponse); 
           })
 
         Axios.post("http://localhost:3001/create-new-order-status",{

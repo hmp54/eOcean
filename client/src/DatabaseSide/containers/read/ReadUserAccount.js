@@ -1,16 +1,24 @@
-import React, { useState }  from 'react'
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function ReadUserAccount() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[UID, setUID] = useState(""); 
   const[email, setEmail] = useState(""); 
   const[fname, setfname] = useState(""); 
-  const[lname, setlname] = useState(""); 
-  const [showSeller, setShowSeller] = useState(false); 
+  const[lname, setlname] = useState("");  
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log(UID + email); 
-    console.log(showSeller); 
+    Axios.post("http://localhost:3001/get-user-account",{
+      UID: UID, 
+    })
+  .then(resp => {
+    console.log("uid" + UID)
+    setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
+    setdbResponse(resp.data); 
+  })
   }
 
   return (
@@ -49,49 +57,9 @@ export default function ReadUserAccount() {
           value={lname}
           onChange={(e) => setlname(e.target.value)}
         />
-        <label htmlFor="showSeller">Also show user's seller status/information?</label>
-        <select
-            id="showSeller"
-            value={showSeller}
-            onChange={(e)=> setShowSeller(e.target.value)}
-        >
-            <option></option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>
   )
 }
 
-/*
-find user through: 
--email OR uid 
-
-
-
-BOILDERPLATE FORM CODE: 
-import React, { useState }  from 'react'
-
-
-  const submitted = (e) =>{
-    e.preventDefault(); 
-  }
-
-  return (
-    <div>
-      <form onSubmit={submitted}>
-        <label htmlFor=""></label>
-        <input 
-          placeholder=""
-          type="text"
-          id=""
-          value={}
-          onChange={(e) => setfname(e.target.value)}
-        />
-        <input className="submit" type="submit" value="Submit"/>
-      </form>
-    </div>
-  )
-*/

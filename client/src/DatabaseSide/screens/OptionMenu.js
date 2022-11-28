@@ -6,8 +6,8 @@ import Footer from '../../OtherComponents/Footer'
 export const DbmsContext = React.createContext();
 //call usecontext here for DBMS messages. 
 export default function OptionMenu() {
-  const[dbResponse, setdbResponse] = useState("Fill out a form to get started :)"); 
-  const[mysqlQuery, setMysqlQuery] = useState("Nothing to see here!");  
+  const[dbResponse, setdbResponse] = useState("--"); 
+  const[mysqlQuery, setMysqlQuery] = useState("--");  
 
   return (
         <div>

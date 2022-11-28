@@ -10,9 +10,9 @@ export default function ProductCategory() {
     e.preventDefault(); 
     Axios.post("http://localhost:3001/create-product-category",{
       categoryName : categoryName
-    }).then(resp=>{
-      setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
-      setdbResponse(resp.data); 
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
     })
   }
   

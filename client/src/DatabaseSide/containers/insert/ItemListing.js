@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function ItemListing() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const [sellerID, setSellerID] = useState("");
   const [productID, setProductID] = useState("");
   const [condition, setCondition] = useState("");
@@ -19,7 +21,10 @@ export default function ItemListing() {
       warehouse : warehouse, 
       itemPrice : itemPrice,
       shippingPrice : shippingPrice
-    }).then((resp) =>{console.log(resp.data)})
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
+    })
   }
 
   return (

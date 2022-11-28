@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function Warehouse() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const [city, setCity] = useState(""); 
   const [state, setState] = useState(""); 
   const [country, setCountry] = useState(""); 
@@ -12,8 +14,9 @@ export default function Warehouse() {
       city : city,
       state : state,
       country : country
-    }).then(resp=>{
-      console.log(resp.data); 
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
     })
   }
 

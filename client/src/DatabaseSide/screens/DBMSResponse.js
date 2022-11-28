@@ -2,7 +2,8 @@ import React, {useContext} from 'react'
 import {DbmsContext} from '../screens/OptionMenu'
 
 export default function DBMSResponse() {
-  const {dbResponse, mysqlQuery} = useContext(DbmsContext);
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+
 
   return (
     <div className="container__response">
@@ -11,6 +12,11 @@ export default function DBMSResponse() {
         <p>{mysqlQuery}</p>
         <h3>Database Response: </h3>
         <p>{dbResponse}</p>
+        <button onClick = {()=>{   
+          console.log("hello")
+          setdbResponse("--"); 
+          setMysqlQuery("--"); 
+        }}>reset</button>
     </div>
   )
 }

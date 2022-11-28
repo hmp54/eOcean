@@ -9,22 +9,19 @@ export default function User() {
   const[email, setemail] = useState("");
   const[uPassword, setPassword] = useState(""); 
   const[billingAddress, setbillingAddress] = useState("");
-  const[isSeller, setIsSeller] = useState(""); 
 
   //sends form variables to back-ensd upom form submission
   const submitted = (e) =>{
-    e.preventDefault();  
+    e.preventDefault(); 
 
-    console.log("Created new user:" + fname + lname + email + billingAddress); 
-    console.log("Attempting to post to localhost:3001/create-new-user");
     Axios.post("http://localhost:3001/create-new-user", {
       fname : fname, 
       lname : lname, 
       email: email, 
       uPassword : uPassword, 
       billingAddress : billingAddress }).then(resp =>{
-        setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
-        setdbResponse(resp.data); 
+        setMysqlQuery(resp.data.query)
+        setdbResponse(resp.data.dbResponse); 
       })
   }
 
@@ -79,17 +76,6 @@ export default function User() {
           value={billingAddress}
           onChange = {(e) => setbillingAddress(e.target.value)}
         />
-        <label htmlFor="isASeller">Is this user also a seller? </label>
-        <p className="msg-small">*This will create a seller profile for them as well</p>
-        <select
-          id="isASeller"
-          value={isSeller}
-          onChange={(e)=> setIsSeller(e.target.value)}
-        >
-          <option></option>
-          <option value="seller">Yes</option>
-          <option value="notSeller">No</option>
-        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>

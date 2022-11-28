@@ -30,9 +30,9 @@ export default function ProductType() {
         productName : productName,
         productCategory : productCategory, 
         productDescription : productDescription
-    }).then(resp => {
-      setMysqlQuery("congrats! your database works (kind of). If you're seeing this message it means you forgot to set the useContext() for the MySql query. Whoops!")
-      setdbResponse(resp.data); 
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
     })
 }
   

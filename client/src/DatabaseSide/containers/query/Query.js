@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
+
 import {
   BrowserRouter,
   Route,
@@ -8,10 +11,18 @@ import {
 } from 'react-router-dom';
 
 export default function Query() {
-  const [customQuery, setCustomQuery] = useState("");
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+  const [theQuery, setTheQuery] = useState("");
 
   const submitted = (e) =>{
     e.preventDefault(); 
+
+    Axios.post("http://localhost:3001/custom-query",{
+      theQuery : theQuery,
+    }).then(resp =>{
+      setMysqlQuery(String(resp.data.query))
+      setdbResponse(String(resp.data.dbResponse)); 
+    })
   }
 
   return (
@@ -24,8 +35,8 @@ export default function Query() {
             type="text" 
             id="category" 
             name="category" 
-            value={customQuery}
-            onChange = {(e) => setCustomQuery(e.target.value)}
+            value={theQuery}
+            onChange = {(e) => setTheQuery(e.target.value)}
           />
           <input className="submit" type="submit" value="Submit"/>      
       </form>
