@@ -45,6 +45,7 @@ export default function Order() {
     return (
     <div className="form-field">
         <h2>Create New Order</h2>
+        <p>*Item ID, Buyer ID and seller ID must all belong to existing accounts.</p>
         <form onSubmit={submitted}>
             <label htmlFor="itemID">Item ID: </label>
             <input
