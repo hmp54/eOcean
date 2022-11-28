@@ -1,10 +1,19 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function DeleteUserAccount() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[itemID, setID] = useState(""); 
+
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log(itemID); 
+    Axios.post("http://localhost:3001/delete-item-listing",{
+      itemID : itemID
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
+    })
   }
 
   return (

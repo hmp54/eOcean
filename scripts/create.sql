@@ -24,6 +24,7 @@ CREATE TABLE Sellers(
     seller_id INT NOT NULL,
     number_of_items_sent INT NOT NULL,
     number_of_items_sold INT NOT NULL,
+    PRIMARY KEY (seller_id),
     FOREIGN KEY (seller_id) references Users(user_id) ON DELETE CASCADE
 );
 
@@ -62,7 +63,7 @@ CREATE TABLE ItemInfo (
     warehouse_id INTEGER NOT NULL,
     PRIMARY KEY(item_id, product_id),
     FOREIGN KEY(product_id) REFERENCES Products(product_id)  ON DELETE CASCADE,
-    FOREIGN KEY(warehouse_id) REFERENCES Warehouses(warehouse_id)  ON DELETE CASCADE
+    FOREIGN KEY(warehouse_id) REFERENCES Warehouses(warehouse_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Orders(

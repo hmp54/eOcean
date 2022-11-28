@@ -333,6 +333,54 @@ app.post('/get-warehouse', (req, res) =>{
         }
     )
 })
+
+
+
+app.post('/delete-user', (req,res) => {
+    let UID = req.body.UID; 
+    let theQuery = 'DELETE FROM Users WHERE user_id = ?'
+    let value = [UID]
+
+    db.query(
+        theQuery,
+        value,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Created a new product category 🎉"})
+        }
+    )
+})
+
+app.post('/delete-listing', (req,res) => {
+    let itemID = req.body.itemID; 
+    let theQuery = 'DELETE FROM itemlistings WHERE item_id = ?'
+    let value = [itemID]
+
+    db.query(
+        theQuery,
+        value,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Created a new product category 🎉"})
+        }
+    )
+})
+
+app.post('/delete-order-invoice', (req,res) => {
+    
+})
+app.post('/delete-product-category', (req,res) => {
+    
+})
+
+app.post('/delete-product', (req,res) => {
+    
+})
+
+app.post('/delete-warehouse', (req,res) => {
+    
+})
+
 /*
     db.query(
         '',
