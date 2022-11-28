@@ -24,7 +24,7 @@ const db = mysql.createConnection({
 });
 
 /***INSERT FORMS QUERIES***/
-app.post('/create-new-user', (req, res) => {
+app.get('/create-new-user', (req, res) => {
     const fname = req.body.fname; 
     const lname = req.body.lname;
     const email = req.body.email; 
@@ -158,13 +158,15 @@ app.post('/create-warehouse', (req,res) => {
     )
 })
 
-app.post('/custom-query', (req,res) =>{
-    const theQuery = req.body.theQuery; 
+app.get('/custom-query', (req,res) =>{
+    //const theQuery = req.body.theQuery; 
+    const theQuery = 'SELECT * FROM users';
+
     db.query(
         theQuery,
         (err, result) => {
-            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
-            else res.send({query:  theQuery, dbResponse: "Successfully sent a custom query 🎉"})
+            if(err) res.send({result: result, query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({result: result, query:  theQuery, dbResponse: "Successfully sent a custom query 🎉"})
         }
     )
 })

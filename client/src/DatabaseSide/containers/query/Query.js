@@ -16,12 +16,11 @@ export default function Query() {
 
   const submitted = (e) =>{
     e.preventDefault(); 
-
-    Axios.post("http://localhost:3001/custom-query",{
-      theQuery : theQuery,
-    }).then(resp =>{
+    console.log("THE QUERY: " + theQuery)
+    Axios.get("http://localhost:3001/custom-query").then(resp =>{
+     console.log(resp); 
       setMysqlQuery(String(resp.data.query))
-      setdbResponse(String(resp.data.dbResponse)); 
+      setdbResponse(String(resp.data.result)); 
     })
   }
 
