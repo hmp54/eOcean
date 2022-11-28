@@ -1,7 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
-
+import {mapJSON} from '../../../OtherComponents/JSONFunctions'
 import {
   BrowserRouter,
   Route,
@@ -17,12 +17,16 @@ export default function Query() {
   const submitted = (e) =>{
     e.preventDefault(); 
     console.log("THE QUERY: " + theQuery)
-    Axios.get("http://localhost:3001/custom-query").then(resp =>{
+    Axios.post("http://localhost:3001/custom-query",{
+      theQuery: theQuery
+    }).then(resp =>{
      console.log(resp); 
-      setMysqlQuery(String(resp.data.query))
-      setdbResponse(String(resp.data.result)); 
+      setMysqlQuery(String(resp.data.query));
+      setdbResponse(mapJSON(resp.data.result)); 
+      
     })
   }
+
 
   return (
     <div className='form-field'>

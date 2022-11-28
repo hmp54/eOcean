@@ -24,7 +24,7 @@ const db = mysql.createConnection({
 });
 
 /***INSERT FORMS QUERIES***/
-app.get('/create-new-user', (req, res) => {
+app.post('/create-new-user', (req, res) => {
     const fname = req.body.fname; 
     const lname = req.body.lname;
     const email = req.body.email; 
@@ -41,12 +41,13 @@ app.get('/create-new-user', (req, res) => {
             if(err)
                 res.send("Uh-oh, something went wrong.  " + err)
             else 
-                res.send({query:  theQuery, dbResponse: "Success! New user account created. 🎉"})
+                res.send({ query:  theQuery, dbResponse: "Success! New user account created. 🎉"})
         }
     ); 
 
    
 })
+
 
 app.post('/create-new-order', (req,res) => {
     const itemID = req.body.itemID;
@@ -158,20 +159,22 @@ app.post('/create-warehouse', (req,res) => {
     )
 })
 
-app.get('/custom-query', (req,res) =>{
+app.post('/custom-query', (req,res) =>{
     //const theQuery = req.body.theQuery; 
-    const theQuery = 'SELECT * FROM users';
+    const theQuery = req.body.theQuery; 
 
     db.query(
         theQuery,
         (err, result) => {
             if(err) res.send({result: result, query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
             else res.send({result: result, query:  theQuery, dbResponse: "Successfully sent a custom query 🎉"})
+
+            console.log(result)
         }
     )
 })
 
-app.get('/get-categories', (req,res)=>{
+app.post('/get-categories', (req,res)=>{
     db.query(
         'SELECT * FROM productcategories',
         (err, result) => {
@@ -187,19 +190,45 @@ app.post('/get-user-account', (req, res)=>{
     const email = req.body.email; 
     const fname = req.body.fname; 
     const lname = req.body.lname; 
-    const showSeller = req.body.showSeller; 
+    const seller = req.body.seller; 
+    const fInitial = req.body.fInitial;
+    const lInitial = req.body.lInitial; 
 
-    let query; 
+    console.log(UID + " email:" + email + " fname:" + fname + " lname:" + lname + " seller:" + seller);
+    console.log("initials: " + fInitial + lInitial)
+    console.log("Uid: " + UID.length + "seller: " + seller)
+    let theQuery;
+    let values; 
 
-        query = 'SELECT * FROM users JOIN sellers ON users.user_id = sellers.seller_id WHERE users.user_id=?'
-        db.query(
-            query,
-            [UID,UID],
-            (err, result)=>{
-                if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
-                else res.send(result)
-            }
-        )
+    if (seller && UID.length > 0){
+        console.log("OPTION 1")
+        theQuery = 'SELECT * FROM users JOIN sellers ON users.user_id = sellers.seller_id WHERE users.user_id=?'
+        values = [UID,UID];
+    }
+    else if(!seller && UID.length > 0){
+        console.log("OPTION 2")
+        theQuery = 'SELECT * FROM users WHERE users.user_id=?';
+        values = [UID]
+    } else if(fname.length > 0 && lname.length > 0){
+        console.log("OPTION 3")
+        theQuery = "SELECT * FROM users WHERE (first_name = '?' AND last_name='?')"
+    } else if(fInitial.length > 0 && lInitial > 0){
+        console.log("OPTION 4")
+        theQuery = "SELECT * FROM users WHERE (first_name LIKE '?%' AND last_name LIKE '?%')";
+        values = [fInitial, lInitial]
+    }
+
+    console.log(theQuery); 
+    console.log("Sending query")
+
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+        }
+    )
 })
 
 /*
