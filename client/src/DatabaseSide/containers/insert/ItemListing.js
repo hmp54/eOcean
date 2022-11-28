@@ -61,17 +61,15 @@ export default function ItemListing() {
           <option value="Used - Good">Used - Good</option>
           <option value="Used - Fair">Used - Fair</option>
         </select>
-        <label htmlFor="warehouseLocation">Warehouse: </label>
-        <select
-            id="warehouse"
-            value={warehouse}
-            onChange={(e)=> setWarehouse(e.target.value)}
-        >
-            <option></option>
-            <option value="Washington DC - 1">Washington DC - 1</option>
-            <option value="Portland - 4">Portland - 4</option>
-            <option value="Philadelphia - 2">Philadelphia - 2</option>
-        </select>
+        <label htmlFor="warehouseLocation">Warehouse ID: </label>
+        <input
+          placeholder='ex: 12'
+          type='text'
+          id='itemPrice'
+          name='itemPrice'
+          value={warehouse}
+          onChange={(e) => setWarehouse(e.target.value)}
+        />
         <label htmlFor="itemPrice">Item Asking Price: </label>
         <input
           placeholder='ex: $10.99'

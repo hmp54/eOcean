@@ -1,14 +1,25 @@
-import React, { useState }  from 'react'
+import React, { useState, useContext }  from 'react'
+import {mapJSON} from '../../../OtherComponents/JSONFunctions'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu';
 
 export default function ReadProductListing() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[itemID, setItemID] = useState(""); 
   const[min, setMin] = useState("");
   const [max, setMax] = useState("");
   const[productCategory, setProductCategory] = useState("");
   const[sellerID, setSellerID] = useState(""); 
   const[showSeller, setShowSeller] = useState(""); 
+
   const submitted = (e) =>{
     e.preventDefault(); 
+    Axios.post("http://localhost:3001/get-item-listing",{
+      itemID : itemID
+    }).then(resp =>{
+      setMysqlQuery(String(resp.data.query));
+      setdbResponse(mapJSON(resp.data.result)); 
+    })
   }
 
   return (

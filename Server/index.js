@@ -184,6 +184,56 @@ app.post('/get-categories', (req,res)=>{
     )
 })
 
+app.post('/get-product-types', (req, res)=>{
+    const productName = req.body.productName; 
+    const productCategory = req.body.productCategory; 
+    let theQuery;
+    let values; 
+
+    if(productCategory.length > 0){
+        theQuery = "SELECT * FROM products where product_name = ? AND product_category = ?;"
+        values = [productName, productCategory]
+    } else{
+        theQuery =  "SELECT * FROM products where product_name = ?"; 
+        values = [productName];
+    }
+
+
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+        }
+    )
+})
+
+
+app.post('/get-order-invoice', (req, res)=>{
+    const orderID = req.body.orderID; 
+
+    let theQuery = 'SELECT * FROM orders WHERE order_id=?';
+    let values = [orderID]; 
+
+    if(!(typeof theQuery == 'undefined')){
+        db.query(
+            theQuery,
+            values,
+            (err, result)=>{
+                if(err) {
+                    console.log(err)
+                    res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+                } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+            }
+        )
+    } else{
+        res.send({result : "❓", query : theQuery, dbResponse: "Unable to create query. Please double-check the forms and try again!"})
+    }
+})
+
 /** READ queries */
 app.post('/get-user-account', (req, res)=>{
     const UID = req.body.UID; 
@@ -196,9 +246,9 @@ app.post('/get-user-account', (req, res)=>{
 
     let theQuery;
     let values; 
-
+    console.log("INITIALS: " + fInitial + lInitial)
     if ((seller) && UID.length > 0){
-        console.log("OPTION ")
+        console.log("OPTION 0")
         theQuery = 'SELECT * FROM users JOIN sellers ON users.user_id = sellers.seller_id WHERE users.user_id=?'
         values = [UID,UID];
     }
@@ -211,26 +261,26 @@ app.post('/get-user-account', (req, res)=>{
     
     if((!seller) && (fname.length > 0 &&  lname.length > 0)){
         console.log("OPTION 2")
-        theQuery = "SELECT * FROM users WHERE (first_name = '?' AND last_name='?')"
+        theQuery = "SELECT * FROM users WHERE (first_name = ? AND last_name= ?)"
         values = [fname, lname]
     } 
     
     if((seller) && (fname.length > 0 && lname.length > 0)){
         console.log("OPTION 3")
-        theQuery = "SELECT * FROM users JOIN sellers WHERE (users.first_name='?' AND users.last_name='?');"
+        theQuery = "SELECT * FROM users JOIN sellers WHERE (users.first_name = ? AND users.last_name= ?);"
         values = [fname, lname]
     } 
 
 
     if((!seller) && (fInitial.length > 0 && lInitial.length > 0)){
         console.log("OPTION 4")
-        theQuery = "SELECT * FROM users WHERE (first_name LIKE '?%' AND last_name LIKE '?%')";
+        theQuery = "SELECT * FROM users WHERE (users.first_name LIKE ?% AND users.last_name LIKE ?%)";
         values = [fInitial, lInitial]
     }
     
     if((seller) && (fInitial.length > 0 && lInitial.length > 0)){
         console.log("OPTION 5")
-        theQuery = "SELECT * FROM users JOIN sellers WHERE (first_name LIKE '?%' AND last_name LIKE '?%')";
+        theQuery = "SELECT * FROM users JOIN sellers WHERE (users.first_name LIKE ?% AND users.last_name LIKE ?%)";
         values = [fInitial, lInitial]
     }
 
@@ -246,10 +296,43 @@ app.post('/get-user-account', (req, res)=>{
             }
         )
     } else{
-        res.send({result : "❓", query : undefined, dbResponse: "Unable to create query. Please double-check the forms and try again!"})
+        res.send({result : "❓", query : theQuery, dbResponse: "Unable to create query. Please double-check the forms and try again!"})
     }
 })
 
+
+app.post('/get-item-listing', (req, res) =>{
+    const itemID = req.body.itemID; 
+
+    let theQuery = 'SELECT * FROM itemlistings WHERE item_id = ?'
+    let values = [itemID]
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+        }
+    )
+})
+
+app.post('/get-warehouse', (req, res) =>{
+    const WID = req.body.WID; 
+    let theQuery = 'SELECT * FROM warehouses WHERE warehouse_id = ?'
+    let values = [WID]
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+        }
+    )
+})
 /*
     db.query(
         '',

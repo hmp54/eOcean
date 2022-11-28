@@ -1,6 +1,10 @@
-import React, { useState }  from 'react';
+import React, { useState, useContext }  from 'react'
+import {mapJSON} from '../../../OtherComponents/JSONFunctions'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu';
 
 export default function ReadWareHouseInfo() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[WID, setWID] = useState(""); 
   const[city, setCity] = useState(""); 
   const[theState, setTheState] = useState(""); 
@@ -9,7 +13,12 @@ export default function ReadWareHouseInfo() {
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log(WID + city + theState+ country)
+    Axios.post("http://localhost:3001/get-warehouse",{
+      WID : WID
+    }).then(resp =>{
+      setMysqlQuery(String(resp.data.query));
+      setdbResponse(mapJSON(resp.data.result)); 
+    })
   }
 
   return (

@@ -1,6 +1,10 @@
-import React, { useState }  from 'react'
+import React, { useState, useContext }  from 'react'
+import {mapJSON} from '../../../OtherComponents/JSONFunctions'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function SellerAccount() {
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[orderID, setorderID] = useState("");
   const[itemID, setItemID] = useState("");
   const[userID, setUserID] = useState(""); 
@@ -11,8 +15,12 @@ export default function SellerAccount() {
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log(orderID)
-    console.log(itemID)
+    Axios.post("http://localhost:3001/get-order-invoice",{
+      orderID : orderID
+    }).then(resp =>{
+      setMysqlQuery(String(resp.data.query));
+      setdbResponse(mapJSON(resp.data.result)); 
+    })
   }
 
   return (
