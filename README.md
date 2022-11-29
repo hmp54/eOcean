@@ -19,11 +19,12 @@ COSC-280 final mySQL project
 
 ## launching the server/database side:
 
-1. Once the UI is running, open a new terminal instance separate from the one that is being used to run the UI.
-2. Navigate into the 'server' directory: `cd server`
-3. Run the command: `node index.js`
-4. If successful, should get a message from console: `Running server on port 3001.`
-5. Now good to start using the UI!
+1. Run create.sql and insert.sql to ensure an updated version of the database is on your system first.
+2. Once the UI is running, open a new terminal instance separate from the one that is being used to run the UI.
+3. Navigate into the 'server' directory: `cd server`
+4. Run the command: `node index.js`
+5. If successful, should get a message from console: `Running server on port 3001.`
+6. Now good to start using the UI!
 
 ## What's in each folder:
 
