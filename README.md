@@ -12,10 +12,10 @@ COSC-280 final mySQL project
 3. Navigate into `client` directory:
    `cd client`
 
-4. To launch the app use command: `npm start`
-   -If the app launches succesfully, it should open up a web browser with the app at some localhost address (typically localhost:3000).
+4. Run `npm install` to ensure all required dependencies + libraries are properly installed.
 
-5. If `npm start` throws the error `sh: react-scripts: command not found` then try running the command `npm install` within the `client` directory first.
+5. To launch the app use command: `npm start`
+   -If the app launches succesfully, it should open up a web browser with the app at some localhost address (typically localhost:3000).
 
 ## launching the server/database side:
 
