@@ -346,7 +346,7 @@ app.post('/delete-user', (req,res) => {
         value,
         (err, result) => {
             if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
-            else res.send({query:  theQuery, dbResponse: "Success! DELTE query sent to the database 🎉"})
+            else res.send({query:  theQuery, dbResponse: "DELETE query sent to the database 🎉"})
         }
     )
 })
@@ -473,7 +473,7 @@ app.post('/update-order', (req,res) => {
     let orderStatus = req.body.orderStatus; 
     let tracking = req.body.tracking; 
     let shippingProvider = req.body.shippingProvider; 
-    let paymentStatus = req.body.paymentStatus; 
+    let paymentStatus = req.body.paymentStatus; UPDATE
 
     let theQuery;
     let values;
@@ -483,7 +483,7 @@ app.post('/update-order', (req,res) => {
         values = [orderStatus, orderID]
     }
     else if(tracking.length > 0){
-        theQuery = "UPDATE orderstatus SET shipping_status= ? WHERE order_id = ?;"
+        theQuery = "UPDATE orderstatus SET tracking_id= ? WHERE order_id = ?;"
         values = [tracking, orderID]
     }
     else if(shippingProvider.length > 0){

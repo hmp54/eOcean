@@ -44,41 +44,7 @@ export default function ReadProductListing() {
           onChange={(e) => setSellerID(e.target.value)}
         />
 
-        <h3>OR do a general search: </h3>
-        <label htmlFor="min">Min cost ($USD):</label>
-        <input 
-          placeholder="0"
-          type="text"
-          id="min"
-          value={min}
-          onChange={(e) => setMin(e.target.value)}
-        />
-        <label htmlFor="max">Max cost ($USD):</label>
-        <input 
-          placeholder="99999"
-          type="text"
-          id="max"
-          value={max}
-          onChange={(e) => setMax(e.target.value)}
-        />
-        <label htmlFor="productCategory">Product Category:</label>
-        <input 
-          placeholder="ex. sneakers"
-          type="text"
-          id="productCategory"
-          value={productCategory}
-          onChange={(e) => setProductCategory(e.target.value)}
-        />
-        <label htmlFor="showSeller">Show seller information</label>
-        <select
-          id="showSeller"
-          value={showSeller}
-          onChange={(e)=> setShowSeller(e.target.value)}
-        >
-          <option></option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
+       
         <input className="submit" type="submit" value="Submit"/>
       </form>
     </div>

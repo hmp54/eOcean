@@ -2,7 +2,11 @@
 
 COSC-280 final mySQL project
 
-## launching the UI SIDE:
+## Creating database:
+
+1. Run ./scripts/create.sql and ./scripts/insert.sql first to create the database
+
+## launching the UI:
 
 1. Project was created with Node JS and [React JS](https://reactjs.org/docs/create-a-new-react-app.html).
    -Install node.js: https://nodejs.org/en/
@@ -29,7 +33,5 @@ COSC-280 final mySQL project
 ## What's in each folder:
 
 1. **Client:** UI implementation - created with Javascript + React JS
-
 2. **Server:** Code that connects the UI to the MySQL database - created with Javascript, Node JS, MySql JS 2 (A library that allows SQL queries to be made in Javascript)
-
 3. **Scripts:** all of the .sql files live here.
