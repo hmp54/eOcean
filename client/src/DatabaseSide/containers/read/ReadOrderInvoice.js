@@ -8,9 +8,8 @@ export default function SellerAccount() {
   const[orderID, setorderID] = useState("");
   const[itemID, setItemID] = useState("");
   const[userID, setUserID] = useState(""); 
-  const[startDate, setStartDate] = useState(""); 
-  const[endDate, setEndDate] = useState("");  
-  const[orderStatus, setOrderStatus] = useState(""); 
+  const[minCost, setMinCost] = useState(""); 
+  const[maxCost, setMaxCost] = useState("");  
   const[warehouse, setWarehouse] = useState(""); 
 
   const submitted = (e) =>{
@@ -38,37 +37,26 @@ export default function SellerAccount() {
         <h3>Advanced search options:</h3> 
         <div className="read__orderDate">
           <div>
-            <label htmlFor="orderID">Start Date: </label>
+            <label htmlFor="orderID">Min cost: </label>
             <input 
               placeholder="ex. 1/1/2022"
               type="text"
-              id="orderID"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              id="minCost"
+              value={minCost}
+              onChange={(e) => setMinCost(e.target.value)}
             />
           </div>
           <div>
-          <label htmlFor="orderID">End Date: </label>
+          <label htmlFor="maxCost">Max cost: </label>
           <input 
-            placeholder="ex. 2/2/2022"
+            placeholder="ex. $200"
             type="text"
-            id="orderID"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+            id="maxCost"
+            value={maxCost}
+            onChange={(e) => setMaxCost(e.target.value)}
           />
           </div>
         </div>
-        <label htmlFor="orderStatus">Order Status: </label>
-        <select
-            id="orderStatus"
-            value={orderStatus}
-            onChange={(e)=> setOrderStatus(e.target.value)}
-        >
-            <option></option>
-            <option value="Paid">Paid</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Delivered">Delivered</option>
-        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
       

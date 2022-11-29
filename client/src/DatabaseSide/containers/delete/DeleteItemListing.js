@@ -8,7 +8,7 @@ export default function DeleteUserAccount() {
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    Axios.post("http://localhost:3001/delete-item-listing",{
+    Axios.post("http://localhost:3001/delete-listing",{
       itemID : itemID
     }).then(resp =>{
       setMysqlQuery(resp.data.query);
@@ -28,13 +28,6 @@ export default function DeleteUserAccount() {
           onChange={(e)=> setID(e.target.value)}
         />
         <input className="submit" type="submit" value="Submit"/>
-      </form>
-
-      <form>
-        <h3>Are you sure you want to delete this listing?</h3>
-        <p>This action cannot be undone!</p>
-        <button>Yes</button>
-        <button>No</button>
       </form>
     </div>
   )

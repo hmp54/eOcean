@@ -14,15 +14,6 @@ export default function ProductType() {
     <option key={index}>{item}</option>
   );
 
-  const getCategoryList = () =>{ 
-    console.log("Getting category list: ")
-      Axios.get("http://localhost:3001/get-categories").then((resp) =>{
-          setCategoryList(resp.data); 
-          console.log(categoryList);
-      })
-  }
-
-
   const submitted = (e) =>{
     e.preventDefault(); 
     console.log("Attempting to post to localhost:3001/create-new-order");
@@ -35,11 +26,6 @@ export default function ProductType() {
       setdbResponse(resp.data.dbResponse); 
     })
 }
-  
-
-  useEffect(()=>{
-    getCategoryList(); 
-  }, []);
   
   return (
     <div className="form-field">

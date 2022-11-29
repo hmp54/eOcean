@@ -61,7 +61,7 @@ CREATE TABLE ItemInfo (
 	item_id INTEGER NOT NULL AUTO_INCREMENT,
     product_id INTEGER NOT NULL,
     warehouse_id INTEGER NOT NULL,
-    PRIMARY KEY(item_id, product_id),
+    PRIMARY KEY(item_id),
     FOREIGN KEY(product_id) REFERENCES Products(product_id)  ON DELETE CASCADE,
     FOREIGN KEY(warehouse_id) REFERENCES Warehouses(warehouse_id) ON DELETE CASCADE
 );

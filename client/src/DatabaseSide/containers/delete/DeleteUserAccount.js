@@ -29,13 +29,6 @@ export default function DeleteUserAccount() {
         />
         <input className="submit" type="submit" value="Submit"/>
       </form>
-
-      <form>
-        <h3>Are you sure you want to delete this account?</h3>
-        <p>This action cannot be undone!</p>
-        <button>Yes</button>
-        <button>No</button>
-      </form>
     </div>
   )
 }

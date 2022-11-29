@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function ProductType() {
   const[productName, setName] = useState("");
@@ -6,25 +8,32 @@ export default function ProductType() {
   const[productDescription, setDescription] = useState(""); 
   const[prodID, setProdID] = useState("");
 
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+
   const submitted = (e) =>{
     e.preventDefault(); 
-}
+    Axios.post("http://localhost:3001/update-product",{
+      productName : productName,
+      productCategory : productCategory,
+      productDescription : productDescription, 
+      prodID : prodID
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
+    })
+  }
 
   return (
     <div className="form-field">
-        <form onSubmit={submitted}>
-          <h2>Enter product ID: </h2>
+      <form onSubmit={submitted}>
+      <h3>First, enter the product ID: </h3>
           <label htmlFor="prodID">Product ID: </label>
           <input 
             id="prodID" 
             placeholder="ex. 123456"
             value={prodID}
             onChange={(e) => setProdID(e.target.value)}/>
-          <input className="submit" type="submit" value="Submit"/>
-      </form>
-
-      <h2>Edit an Existing Product Type:</h2>
-      <form>
+        <h3>Then, enter what you want to edit: </h3>
         <label htmlFor='productName'>Product Name:</label>
         <input
           placeholder='for example: Nike AF1 Shoes'
@@ -34,15 +43,13 @@ export default function ProductType() {
           onChange = {(e) => setName(e.target.value)}
         />
         <label htmlFor='productCategory'>Product Category:</label>
-        <p>*if a product category you need is not listed here, you can create a new one under "insert > product category" tab</p>
-
-        <select
+        <input
+          id="productCategory"
+          type="text"
           value={productCategory}
           onChange={(e)=> setCategory(e.target.value)}
-        >
-          <option value="shoes">Shoes</option>
-          <option value="hat">Hat</option>
-        </select>
+          placeholder="ex. Dresses"
+        />
         <label htmlFor='productDescription'>Product Description:</label>
         <input
           placeholder='for example: white low-top tennis shoes.'

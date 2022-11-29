@@ -2,7 +2,7 @@
 
 COSC-280 final mySQL project
 
-## launching the project:
+## launching the UI SIDE:
 
 1. Project was created with Node JS and [React JS](https://reactjs.org/docs/create-a-new-react-app.html).
    -Install node.js: https://nodejs.org/en/
@@ -16,6 +16,14 @@ COSC-280 final mySQL project
    -If the app launches succesfully, it should open up a web browser with the app at some localhost address (typically localhost:3000).
 
 5. If `npm start` throws the error `sh: react-scripts: command not found` then try running the command `npm install` within the `client` directory first.
+
+## launching the server/database side:
+
+1. Once the UI is running, open a new terminal instance separate from the one that is being used to run the UI.
+2. Navigate into the 'server' directory: `cd server`
+3. Run the command: `node index.js`
+4. If successful, should get a message from console: `Running server on port 3001.`
+5. Now good to start using the UI!
 
 ## What's in each folder:
 

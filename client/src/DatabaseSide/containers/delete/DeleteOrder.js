@@ -1,10 +1,19 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu';
 
 export default function DeleteUserAccount() {
   const[orderID, setID] = useState(""); 
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log(orderID); 
+    Axios.post("http://localhost:3001/delete-order-invoice",{
+      orderID : orderID
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
+    })
   }
 
   return (
@@ -19,13 +28,6 @@ export default function DeleteUserAccount() {
           onChange={(e)=> setID(e.target.value)}
         />
         <input className="submit" type="submit" value="Submit"/>
-      </form>
-
-      <form>
-        <h3>Are you sure you want to delete this order?</h3>
-        <p>This action cannot be undone!</p>
-        <button>Yes</button>
-        <button>No</button>
       </form>
     </div>
   )

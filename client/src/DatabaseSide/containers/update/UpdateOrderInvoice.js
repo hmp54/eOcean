@@ -1,89 +1,49 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
+
 
 export default function Order() {
     const[orderID, setOrderID] = useState(""); 
-    const [itemID, setItemID] = useState(""); 
-    const [buyerID, setBuyerID] = useState("");
-    const [sellerID, setSellerID] = useState("");
-    const [orderCost, setOrderCost] = useState("");
-    const[date, setDate] = useState(""); 
     const[orderStatus, setOrderStatus] = useState(""); 
     const[tracking, setTracking] = useState("");
     const[shippingProvider, setShippingProvider]  = useState(""); 
     const[paymentStatus, setPaymentStatus] = useState(""); 
     
+    const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+
     const submitted = (e) =>{
-        e.preventDefault(); 
-        console.log(itemID + buyerID + sellerID + orderCost)
+      e.preventDefault(); 
+      Axios.post("http://localhost:3001/update-order",{
+        orderID : orderID,
+        orderStatus : orderStatus,
+        tracking : tracking, 
+        shippingProvider : shippingProvider, 
+        paymentStatus : paymentStatus
+      }).then(resp =>{
+        setMysqlQuery(resp.data.query);
+        setdbResponse(resp.data.dbResponse); 
+      })
     }
 
     return (
-    <div className="form-field">
+    <div className="form-field">    
         <form onSubmit={submitted}>
-          <h2>Enter order invoice ID: </h2>
+        <h3>First, enter order invoice ID that you want to update: </h3>
           <label htmlFor="orderID">Order ID: </label>
           <input 
             id="orderID" 
             placeholder="ex. 123456"
             value={orderID}
             onChange={(e) => setOrderID(e.target.value)}/>
-          <input className="submit" type="submit" value="Submit"/>
-        </form>
-
-
-        <h2>Edit Order:</h2>
-        <form onSubmit={submitted}>
-            <label htmlFor="itemID">Item ID: </label>
-            <input
-                placeholder="Item ID"
-                type="text"
-                id="itemID"
-                name=""
-                value={itemID}
-                onChange={(e) => setItemID(e.target.value)}
-            />
-            <label htmlFor="buyerID">Buyer ID: </label>            
-            <input
-                placeholder="Buyer ID"
-                type="text"
-                id="buyerID"
-                name=""
-                value={buyerID}
-                onChange={(e) => setBuyerID(e.target.value)}
-            />
-            <label htmlFor="sellerID">Seller ID: </label>
-            <input
-                placeholder="Seller ID"
-                type="text"
-                id=""
-                name=""
-                value={sellerID}
-                onChange={(e) => setSellerID(e.target.value)}
-            />
-            <label htmlFor="orderCost">Order Cost (USD): </label>
-            <input
-                placeholder= "Order Cost (USD)"
-                type="text"
-                id=""
-                name=""
-                value={orderCost}
-                onChange={(e) => setOrderCost(e.target.value)}
-            />
-            <label htmlFor="orderCost">Order Date (MM/DD/YYYY): </label>
-            <input
-                placeholder= "01/25/1999"
-                type="text"
-                id=""
-                name=""
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-            />
+        <h3>What do you want to change?</h3>
             <label htmlFor="shippingProvider">Shipping Provider</label>
             <select
                 id="shippingProvider"
                 value={shippingProvider}
                 onChange={(e)=> setShippingProvider(e.target.value)}
             >
+                <option></option>
                 <option value="Fedex">Fedex</option>
                 <option value="USPS">USPS</option>
                 <option value="UPS">UPS</option>
@@ -103,6 +63,7 @@ export default function Order() {
                     value={orderStatus}
                     onChange={(e)=> setOrderStatus(e.target.value)}
                 >
+                    <option></option>
                     <option value="OrderRecieved">Order Recieved</option>
                     <option value="Shipped">Shipped</option>
                     <option value="Delivered">Delivered</option>
@@ -113,6 +74,7 @@ export default function Order() {
                     value={paymentStatus}
                     onChange={(e)=> setPaymentStatus(e.target.value)}
                 >
+                    <option></option>
                     <option value="Pending">Pending</option>
                     <option value="Declined">Declined</option>
                     <option value="Paid">Paid</option>

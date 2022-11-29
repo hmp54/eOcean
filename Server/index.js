@@ -346,7 +346,7 @@ app.post('/delete-user', (req,res) => {
         value,
         (err, result) => {
             if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
-            else res.send({query:  theQuery, dbResponse: "Success! Created a new product category 🎉"})
+            else res.send({query:  theQuery, dbResponse: "Success! DELTE query sent to the database 🎉"})
         }
     )
 })
@@ -361,33 +361,248 @@ app.post('/delete-listing', (req,res) => {
         value,
         (err, result) => {
             if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
-            else res.send({query:  theQuery, dbResponse: "Success! Created a new product category 🎉"})
+            else res.send({query:  theQuery, dbResponse: "Success! Deleted an item listing from the database 🎉"})
         }
     )
 })
 
 app.post('/delete-order-invoice', (req,res) => {
-    
+    let orderID = req.body.orderID; 
+    let theQuery = 'DELETE FROM orders WHERE order_id = ?'
+    let value = [orderID]
+
+    db.query(
+        theQuery,
+        value,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Deleted an order invoice from the database 🎉"})
+        }
+    )
 })
 app.post('/delete-product-category', (req,res) => {
-    
+    let category= req.body.category; 
+    let theQuery = 'DELETE FROM productcategories WHERE category_name = ?'
+    let value = [category];
+
+    db.query(
+        theQuery,
+        value,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Sent the DELETE query to the database 🎉"})
+        }
+    )
 })
 
-app.post('/delete-product', (req,res) => {
-    
+app.post('/delete-product-type', (req,res) => {
+    let product= req.body.productID; 
+    let theQuery = 'DELETE FROM products WHERE product_id = ?'
+    let value = [product];
+
+    db.query(
+        theQuery,
+        value,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Sent the DELETE query to the database 🎉"})
+        }
+    )
 })
 
 app.post('/delete-warehouse', (req,res) => {
-    
-})
+    let warehouse= req.body.WID; 
+    let theQuery = 'DELETE FROM warehouses WHERE warehouse_id = ?'
+    let value = [warehouse];
 
-/*
     db.query(
-        '',
-        [],
+        theQuery,
+        value,
         (err, result) => {
-            if(err) console.log(err)
-            else res.send("Successfully created new entry in TABLE: ")
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Deleted an warehouse from the database 🎉"})
         }
     )
-*/
+})
+
+
+app.post('/update-user', (req,res) => {
+    const UID = req.body.UID;
+    const fname = req.body.fname; 
+    const lname = req.body.lname; 
+    const email = req.body.email; 
+    const billingAddress = req.body.billingAddress;
+
+    let theQuery;
+    let values;
+
+    if(fname.length > 0){
+        theQuery = "UPDATE users SET first_name= ? WHERE user_id = ?;";
+        values = [fname, UID]
+        console.log("UID: " + UID + typeof UID)
+        console.log("Fname: " + fname)
+    }
+    else if(lname.length > 0){
+        theQuery = 'UPDATE users SET last_name = ? WHERE user_id = ?;';
+        values = [lname, UID]
+    }
+    else if(email.length > 0){
+        theQuery = 'UPDATE users SET email = ? WHERE user_id = ?;';
+        values = [email, UID]
+    }
+    else if (billingAddress.length > 0){
+        theQuery = 'UPDATE users SET billing_address = ? WHERE user_id = ?;';
+        values = [billingAddress, UID]
+    }
+
+    db.query(
+        theQuery,
+        values,
+        (err, result) => {
+            if(err) {
+                console.log(err); 
+                res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            }
+            else res.send({query:  theQuery, dbResponse: "Success! Sent the DELETE query to the database 🎉"})
+        }
+    )
+})
+
+app.post('/update-order', (req,res) => {
+    let orderID = req.body.orderID; 
+    let orderStatus = req.body.orderStatus; 
+    let tracking = req.body.tracking; 
+    let shippingProvider = req.body.shippingProvider; 
+    let paymentStatus = req.body.paymentStatus; 
+
+    let theQuery;
+    let values;
+
+    if(orderStatus.length > 0){
+        theQuery = "UPDATE orderstatus SET shipping_status= ? WHERE order_id = ?;"
+        values = [orderStatus, orderID]
+    }
+    else if(tracking.length > 0){
+        theQuery = "UPDATE orderstatus SET shipping_status= ? WHERE order_id = ?;"
+        values = [tracking, orderID]
+    }
+    else if(shippingProvider.length > 0){
+        theQuery = "UPDATE orderstatus SET shipping_provider= ? WHERE order_id = ?;"
+        values = [shippingProvider, orderID]
+    }
+    else if(paymentStatus.length > 0){
+        theQuery = "UPDATE orderstatus SET paid_status= ? WHERE order_id = ?;"
+        values = [paymentStatus, orderID]
+    }
+
+    db.query(
+        theQuery,
+        values,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Updated order invoice. 🎉"})
+        }
+    )
+})
+
+app.post('/delete-warehouse', (req,res) => {
+    let warehouse= req.body.WID; 
+    let theQuery = 'DELETE FROM warehouses WHERE warehouse_id = ?'
+    let value = [warehouse];
+
+    db.query(
+        theQuery,
+        value,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Deleted an warehouse from the database 🎉"})
+        }
+    )
+})
+
+app.post('/update-product', (req, res) =>{
+     const productName = req.body.productName; 
+     const productCategory = req.body.productCategory;
+     const productDescription = req.body.productDescription; 
+     const prodID = req.body.prodID; 
+
+     let theQuery;
+     let values;
+
+     if(productName.length > 0){
+        theQuery = "UPDATE products SET product_name= ? WHERE product_ID = ?;"
+        values = [productName, prodID]
+    }
+    else if(productDescription.length > 0){
+        theQuery = "UPDATE products SET product_description= ? WHERE product_ID = ?;"
+        values = [productDescription, prodID]
+    }
+    else if(productCategory.length > 0){
+        theQuery = "UPDATE products SET product_category= ? WHERE product_ID = ?;"
+        values = [productCategory, prodID]
+    }
+
+    db.query(
+        theQuery,
+        values,
+        (err, result) => {
+            if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+            else res.send({query:  theQuery, dbResponse: "Success! Updated the product information! 🎉"})
+        }
+    )
+})
+
+app.post('/update-listings', (req, res) =>{
+    const condition = req.body.condition; 
+    const itemPrice = req.body.itemPrice;
+    const shippingPrice = req.body.shippingPrice; 
+    const itemID = req.body.itemID; 
+
+    let theQuery;
+    let values;
+
+    if(condition.length > 0){
+       theQuery = "UPDATE itemlistings SET item_condition= ? WHERE item_id = ?;"
+       values = [condition, itemID]
+   }
+   else if(itemPrice.length > 0){
+       theQuery = "UPDATE itemlistings SET item_price= ? WHERE item_id = ?;"
+       values = [itemPrice, itemID]
+   }
+   else if(shippingPrice.length > 0){
+       theQuery = "UPDATE itemlistings SET shipping_price= ? WHERE item_id = ?;"
+       values = [shippingPrice, itemID]
+   }
+
+   db.query(
+       theQuery,
+       values,
+       (err, result) => {
+           if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+           else res.send({query:  theQuery, dbResponse: "Success! Updated the product information! 🎉"})
+       }
+   )
+})
+
+app.post('/update-warehouse', (req,res) => {
+    let warehouse= req.body.WID; 
+    let city = req.body.city; 
+    let state = req.body.state;
+    let country = req.body.country; 
+
+
+    if((city.length < 1) || (state.length < 1) || (country.length < 1))
+        res.send({query : "no query sent, not enough data.", dbResponse: "Please enter all required fields first."})
+    else{
+        let theQuery = "UPDATE warehouses SET city= ?, the_state=?, country=? WHERE warehouse_id = ?;";
+        let values = [city, state, country, warehouse];
+        db.query(
+            theQuery,
+            values,
+            (err, result) => {
+                if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
+                else res.send({query:  theQuery, dbResponse: "Success! Edited a warehouse location 🎉"})
+            }
+        )
+    }
+})

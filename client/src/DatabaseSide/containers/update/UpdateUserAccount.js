@@ -1,48 +1,44 @@
-import React, {useState} from 'react'
+import React, { useState, useContext }  from 'react'
+import Axios from 'axios'; 
+import {DbmsContext} from '../../screens/OptionMenu'; 
 
 export default function UpdateUserAccount() {
-  const[UID, setUID] = useState(""); 
+  const[UID, setUID] = useState(0); 
   const[fname, setfname] = useState("");
   const[lname, setlname] = useState("");
   const[email, setemail] = useState("");
-  const[cardNum, setcardNum] = useState("");
   const[billingAddress, setbillingAddress] = useState("");
-  const[shippingAddress, setshippingAddress] = useState("");
-  const[isSeller, setIsSeller] = useState("");
+
+  const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+
   const submitted = (e) =>{
     e.preventDefault(); 
-    console.log(UID); 
+    Axios.post("http://localhost:3001/update-user",{
+      UID : UID,
+      fname : fname,
+      lname : lname,
+      email : email,
+      billingAddress : billingAddress
+    }).then(resp =>{
+      setMysqlQuery(resp.data.query);
+      setdbResponse(resp.data.dbResponse); 
+    })
   }
 
   return (
     <div className='form-field'>
-      <h3>Enter the UID of the user account you wish to edit: </h3>
-      <form onSubmit={submitted}>
+    <h3>Enter the UID of the user account you wish to edit: </h3>
+    <form onSubmit={submitted}>
+      <h3>First, enter the UID of the account you want to edit: </h3>
         <label htmlFor="UID">UID:</label>
         <input 
-          type="text"
+          type="number"
           placeholder="ex. 123456"
           value={UID}
           onChange={(e)=> setUID(e.target.value)}
         />
-        <input className="submit" type="submit" value="Submit"/>
-      </form>
-
-
-    <p className="testMsg">
-      DEV NOTE (delete before submitting): 
-      upon submission, the app will 
-      attempt to search for a user account with this UID. If no user is found, the 
-      console will tell the user that no user account with this UID was found. 
-      If account is found, the form below will be presented for the user to fill out: 
-    </p>
-
-    <p className="testMsg">
-      The same workflow applies to all sections under "UPDATE"
-    </p>
-    
-    
-    <form onSubmit={submitted}>
+      <h3>Next, enter the fields you want to change: </h3>
+      <p>*Submit one field at a time</p>
         <label htmlFor="fname" >First Name:</label>
         <input 
           placeholder="First name"
@@ -70,15 +66,6 @@ export default function UpdateUserAccount() {
           value={email}
           onChange = {(e) => setemail(e.target.value)}
         />
-        <label htmlFor="cardNum">Credit Card Number:</label>
-        <input 
-          placeholder="Credit Card Number"
-          type="text" 
-          id="cardNum" 
-          name="cardNum" 
-          value={cardNum}
-          onChange = {(e) => setcardNum(e.target.value)}
-        />
         <label htmlFor="billingAddress">Billing Address:</label>
         <input 
           placeholder="Billing Address"
@@ -88,24 +75,6 @@ export default function UpdateUserAccount() {
           value={billingAddress}
           onChange = {(e) => setbillingAddress(e.target.value)}
         />
-        <label htmlFor="shippingAddress">Shipping Address:</label>
-        <input 
-          placeholder="Shipping Address"
-          type="text" 
-          id="shippingAddress" 
-          name="shippingAddress" 
-          value={shippingAddress}
-          onChange = {(e) => setshippingAddress(e.target.value)}
-        />
-        <label htmlFor="isSeller">Seller status:</label>
-        <select
-          id="isSeller"
-          value={isSeller}
-          onChange={(e)=> setIsSeller(e.target.value)}
-        >
-          <option value="seller">Seller</option>
-          <option value="notSeller">Not a seller</option>
-        </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>
   </div>
