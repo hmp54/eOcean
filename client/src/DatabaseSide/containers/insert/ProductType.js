@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import GetCategories from '../fetch-components/GetCategories'
 
 export default function ProductType() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
@@ -9,10 +10,9 @@ export default function ProductType() {
   const[productDescription, setDescription] = useState(""); 
   const[categoryList, setCategoryList]= useState([]); 
 
-  const testCategories = ["", "Hat", "Shoes", "Women's Dresses"]
-  const renderCategories = testCategories.map((item, index) => 
-    <option key={index}>{item}</option>
-  );
+  const getCategoryChange = (newCategory) =>{ 
+    setCategory(newCategory); 
+  }
 
   const submitted = (e) =>{
     e.preventDefault(); 
@@ -25,12 +25,14 @@ export default function ProductType() {
       setMysqlQuery(resp.data.query);
       setdbResponse(resp.data.dbResponse); 
     })
+
+    console.log("Product type: " + productCategory)
 }
   
   return (
     <div className="form-field">
       <h2>Create a New Product Type:</h2>
-      <form  onSubmit={submitted}>
+      <form onSubmit={submitted}>
         <label htmlFor='productName'>Product Name:</label>
         <input
           placeholder='for example: Nike AF1 Shoes'
@@ -40,13 +42,14 @@ export default function ProductType() {
           onChange = {(e) => setName(e.target.value)}
         />
         <label htmlFor='productCategory'>Product Category:</label>
-        <input
+       {/*} <input
           placeholder='for example: Nike AF1 Shoes'
           type='text'
           id='productCategory'
           value={productCategory}
           onChange = {(e) => setCategory(e.target.value)}
-        />
+        />*/}
+        <GetCategories id="productCategory" getCategoryChange={getCategoryChange}/>
         <label htmlFor='productDescription'>Product Description:</label>
         <input
           placeholder='for example: white low-top tennis shoes.'

@@ -174,12 +174,23 @@ app.post('/custom-query', (req,res) =>{
     )
 })
 
-app.post('/get-categories', (req,res)=>{
+app.post('/get-dropdown-categories', (req,res) =>{
     db.query(
         'SELECT * FROM productcategories',
+        (err, result) =>{
+            if(err) res.send({dbResponse: "Uh-oh, something went wrong." + err})
+            else res.send(result); 
+        }
+    )
+})
+
+app.post('/get-categories', (req,res)=>{
+    let theQuery = 'SELECT * FROM productcategories'; 
+    db.query(
+        theQuery,
         (err, result) => {
             if(err) res.send({query:  theQuery, dbResponse: "Uh-oh, something went wrong. " + err})
-            else res.send({query:  theQuery, dbResponse: "Success! Created a new warehouse location. 🎉"})
+            else res.send({query:  theQuery, dbResponse: "Success! Fetched category information. 🎉"})
         }
     )
 })
