@@ -1,7 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
-
+import GetItem from '../fetch-components/GetItem'
 export default function DeleteUserAccount() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[itemID, setID] = useState(""); 
@@ -29,6 +29,7 @@ export default function DeleteUserAccount() {
         />
         <input className="submit" type="submit" value="Submit"/>
       </form>
+      <GetItem/>
     </div>
   )
 }
