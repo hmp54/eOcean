@@ -1,6 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import GetItem from '../fetch-components/GetItem';
 
 
 export default function ItemListing() {
@@ -29,7 +30,7 @@ export default function ItemListing() {
       <h2>Edit existing item listing: </h2>
       <form onSubmit={submitted}>
         <h3>Enter ID for the item listing you want to edit: </h3>
-        <label htmlFor="itemID">Order ID: </label>
+        <label htmlFor="itemID">Item ID: </label>
         <input 
           id="itemID" 
           placeholder="ex. 123456"
@@ -68,6 +69,7 @@ export default function ItemListing() {
         />
         <input className="submit" type="submit" value="Submit"/>
       </form>
+      <GetItem/>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import OrderSearch from '../fetch-components/OrderSearch';
 
 
 export default function Order() {
@@ -81,6 +82,7 @@ export default function Order() {
                 </select>
             <input className="submit" type="submit" value="Submit"/>
         </form>
+        <OrderSearch/>
     </div>
     )
 }

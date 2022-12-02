@@ -251,6 +251,24 @@ app.post('/get-order-invoice', (req, res)=>{
     )
 })
 
+app.post('/item-search', (req,res) =>{
+    const itemName = req.body.itemName; 
+    console.log(itemName)
+    let theQuery = `SELECT ItemListings.item_id, products.product_name FROM ItemListings JOIN products WHERE products.product_name LIKE '${itemName}%';`;
+    db.query(
+        theQuery,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else {
+                console.log("Trying to turn result into json: " + result)
+                res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+            }
+        }
+    )
+})
+
 app.post('/order-search', (req,res)=>{
     const fname = req.body.fname; 
     const lname = req.body.lname; 
@@ -258,13 +276,13 @@ app.post('/order-search', (req,res)=>{
     let theQuery;
     let values; 
     if(fname.length > 0 && lname.length > 0){
-        theQuery = `SELECT * FROM Itemlistings JOIN users WHERE users.first_name = ? AND users.last_name = ?;`
+        theQuery = `SELECT * FROM Orders JOIN users WHERE users.first_name = ? AND users.last_name = ?;`
         values = [fname, lname];
     } else if (fname.length > 0) {
-        theQuery = `SELECT * FROM Itemlistings JOIN users WHERE users.first_name ?; `
+        theQuery = `SELECT * FROM Orders JOIN users WHERE users.first_name ?; `
         values = [fname]; 
     } else if (lname.length > 0 ){
-        theQuery = `SELECT * FROM Itemlistings JOIN users WHERE users.last_name ?;`
+        theQuery = `SELECT * FROM Orders JOIN users WHERE users.last_name ?;`
         values = [lname]; 
     }
 

@@ -2,6 +2,7 @@ import React, { useState, useContext }  from 'react'
 import {mapJSON} from '../../../OtherComponents/JSONFunctions'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu';
+import GetItem from '../fetch-components/GetItem';
 
 export default function ReadProductListing() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
@@ -47,6 +48,7 @@ export default function ReadProductListing() {
        
         <input className="submit" type="submit" value="Submit"/>
       </form>
+      <GetItem/>
     </div>
   )
 }

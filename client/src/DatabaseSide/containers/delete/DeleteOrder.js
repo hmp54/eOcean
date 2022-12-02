@@ -1,6 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu';
+import OrderSearch from '../fetch-components/OrderSearch';
 
 export default function DeleteUserAccount() {
   const[orderID, setID] = useState(""); 
@@ -29,6 +30,7 @@ export default function DeleteUserAccount() {
         />
         <input className="submit" type="submit" value="Submit"/>
       </form>
+      <OrderSearch/>
     </div>
   )
 }
