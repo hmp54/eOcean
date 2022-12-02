@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import UserSearch from '../fetch-components/UserSearch';
 
 
 export default function Order() {
@@ -14,7 +15,6 @@ export default function Order() {
     const[tracking, setTracking] = useState("");
     const[shippingProvider, setShippingProvider]  = useState(""); 
     const[paymentStatus, setPaymentStatus] = useState(""); 
-
 
     //creates a new entry in order and order status
     const submitted = (e) =>{
@@ -136,6 +136,7 @@ export default function Order() {
                 </select>
             <input className="submit" type="submit" value="Submit"/>
         </form>
+        <UserSearch/>
     </div>
     )
 }

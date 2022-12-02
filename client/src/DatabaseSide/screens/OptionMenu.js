@@ -10,14 +10,14 @@ export default function OptionMenu() {
   const[mysqlQuery, setMysqlQuery] = useState("--");  
 
   return (
-        <div>
+        <div className = "OptionsMenu__container">
           <DbmsContext.Provider value={{dbResponse, mysqlQuery, setdbResponse, setMysqlQuery}}>
               <nav className = 'OptionsMenu__nav'>
-                <Link className="link" to="/database/insert">Insert</Link>
-                <Link className="link" to="/database/read">Read</Link>
-                <Link className="link" to="/database/update">Update</Link>
-                <Link className="link" to="/database/delete">Delete</Link>
-                <Link className="link" to="/database/query">Query</Link>
+                <Link className="OptionsMenu__link link" to="/database/insert">Insert</Link>
+                <Link className="OptionsMenu__link link" to="/database/read">Read</Link>
+                <Link className="OptionsMenu__link link" to="/database/update">Update</Link>
+                <Link className="OptionsMenu__link link" to="/database/delete">Delete</Link>
+                <Link className="OptionsMenu__link link" to="/database/query">Query</Link>
               </nav>
               <Outlet/>
               <DBMSResponse/>

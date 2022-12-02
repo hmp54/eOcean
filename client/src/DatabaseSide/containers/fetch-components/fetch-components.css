@@ -1,0 +1,10 @@
+.user-search{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    border-radius: 1px solid red;
+}
+
+.search-container{
+    margin-top: 3.5rem;
+}

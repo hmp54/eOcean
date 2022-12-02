@@ -1,6 +1,6 @@
 :root{
   --darkest: #111111;
-  --dark-accent:#cc0000;
+  --dark-accent: #05a4af;
   --mid-grey: #767676; 
   --light-grey: #b8b8b8; 
 }
@@ -73,7 +73,8 @@ a{
 }
 
 .main__link:hover{
-  color: var(--dark-accent)
+  color: var(--dark-accent);
+  transition: 0.3s ease-in-out;
 }
 
 .home{
@@ -85,24 +86,49 @@ a{
   flex-direction: column;
 }
 
+
 .OptionsMenu__nav{
   margin-right: 1em;
   padding: 1em;
-  background-color: var(--light-accent);
+  background-color: var(--mid-grey);
   border-bottom: 1px solid grey;
+  font-weight: 800 !important;
+  font-size: 1em;
+  width: 100%;
 }
 
 .options nav{
   display: flex;
   flex-direction: row;
   align-items: end;
+
 }
 
+.OptionsMenu__link{
+  color: white !important;
+}
+
+.OptionsMenu__link:hover {
+  color: var(--dark-accent) !important;
+  transition: 0.3s ease-in-out;
+  
+}
+
+.OptionsMenu__link:hover::after{
+  content: "";
+  width: 30%;
+  height: 2px; 
+  background: var(--dark-accent); 
+  position: absolute;
+  bottom: -4px;
+  left:20px;
+}
 
 .link{
   margin: 1rem 2rem;
   text-decoration: none;
   color: inherit; 
+  font-weight: 700;
 }
 
 .link:visited{
@@ -189,7 +215,7 @@ a{
 }
 
 .dummy-home h3{
-  color: var(--dark-accent)
+  color: var(--dark-accent);
 }
 
 .dummy-home p{

@@ -2,6 +2,7 @@ import React, { useState, useContext }  from 'react'
 import {mapJSON} from '../../../OtherComponents/JSONFunctions'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import OrderSearch from '../fetch-components/OrderSearch'
 
 export default function SellerAccount() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
@@ -61,7 +62,7 @@ export default function SellerAccount() {
         </div>
         <input className="submit" type="submit" value="Submit"/>
       </form>
-      
+      <OrderSearch/>
     </div>
   )
 }

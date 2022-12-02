@@ -24,7 +24,6 @@ export default function DeleteUserAccount() {
   return (
     <div className="form-field">
       <h3>Which category do you want to delete? </h3>
-      <p>*does not actually delete data - included for demo purposes to show what happens when one tries to delete a category (because many other tables rely on this table's data as a foreign key).</p>
       <form onSubmit={submitted}>
         <label htmlFor='category'>Product Category:</label>
         <GetCategories 

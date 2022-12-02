@@ -3,14 +3,15 @@ import Axios from 'axios';
 import {DbmsContext} from '../../screens/OptionMenu'; 
 import {mapJSON} from '../../../OtherComponents/JSONFunctions'
 import './fetch-components.css'
-export default function UserSearch() {
+
+export default function OrderSearch() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[fname, setfname] = useState(""); 
   const[lname, setlname] = useState("");  
 
   const submitted = (e) =>{
     e.preventDefault(); 
-    Axios.post("http://localhost:3001/user-search",{
+    Axios.post("http://localhost:3001/order-search",{
       fname : fname, 
       lname : lname
     })
@@ -23,7 +24,7 @@ export default function UserSearch() {
 
   return (
     <div className="search-container">
-      <h4>Don't know a user's ID? Search here by name first: </h4>
+      <h4>Don't know thes order ID? Search for one here by customer's name: </h4>
       <form onSubmit={submitted}>
         <div className='user-search'>
           <div>

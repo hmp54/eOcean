@@ -251,6 +251,72 @@ app.post('/get-order-invoice', (req, res)=>{
     )
 })
 
+app.post('/order-search', (req,res)=>{
+    const fname = req.body.fname; 
+    const lname = req.body.lname; 
+    console.log("USER-SEARCH ")
+    let theQuery;
+    let values; 
+    if(fname.length > 0 && lname.length > 0){
+        theQuery = `SELECT * FROM Itemlistings JOIN users WHERE users.first_name = ? AND users.last_name = ?;`
+        values = [fname, lname];
+    } else if (fname.length > 0) {
+        theQuery = `SELECT * FROM Itemlistings JOIN users WHERE users.first_name ?; `
+        values = [fname]; 
+    } else if (lname.length > 0 ){
+        theQuery = `SELECT * FROM Itemlistings JOIN users WHERE users.last_name ?;`
+        values = [lname]; 
+    }
+
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else {
+                console.log("Trying to turn result into json: " + result)
+                res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+            }
+        }
+    )
+    
+})
+
+app.post('/user-search', (req,res)=>{
+    const fname = req.body.fname; 
+    const lname = req.body.lname; 
+    console.log("USER-SEARCH ")
+    let theQuery;
+    let values; 
+    if(fname.length > 0 && lname.length > 0){
+        theQuery = `SELECT  user_id, first_name, last_name FROM users WHERE first_name = ? && last_name = ?`
+        values = [fname, lname];
+    } else if (fname.length > 0) {
+        theQuery = `SELECT user_id, first_name, last_name FROM users WHERE first_name = ?`
+        values = [fname]; 
+    } else if (lname.length > 0 ){
+        theQuery = `SELECT user_id, first_name, last_name FROM users WHERE last_name = ?`
+        values = [lname]; 
+    }
+
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else {
+                console.log("Trying to turn result into json: " + result)
+                res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+            }
+        }
+    )
+    
+})
+
 /** READ queries */
 app.post('/get-user-account', (req, res)=>{
     const UID = req.body.UID; 
@@ -302,19 +368,19 @@ app.post('/get-user-account', (req, res)=>{
 
     }
 
-        db.query(
-            theQuery,
-            values,
-            (err, result)=>{
-                if(err) {
-                    console.log(err)
-                    res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
-                } else {
-                    console.log("Trying to turn result into json: " + result)
-                    res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
-                }
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else {
+                console.log("Trying to turn result into json: " + result)
+                res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
             }
-        )
+        }
+    )
 
 })
 

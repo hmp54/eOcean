@@ -27,7 +27,7 @@ export default function ReadUserAccount() {
   .then(resp => {
     setMysqlQuery(String(resp.data.query));
     setdbResponse(mapJSON(resp.data.result)); 
-})
+  })
   }
 
   return (

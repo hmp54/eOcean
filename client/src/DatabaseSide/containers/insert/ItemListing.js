@@ -1,6 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import UserSearch from '../fetch-components/UserSearch';
 
 export default function ItemListing() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
@@ -90,6 +91,7 @@ export default function ItemListing() {
         />
         <input className="submit" type="submit" value="Submit"/>
       </form>
+      <UserSearch/>
     </div>
   )
 }
