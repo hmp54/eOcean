@@ -6,7 +6,6 @@ import {DbmsContext} from '../../screens/OptionMenu';
 export default function SellerAccount() {
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
   const[orderID, setorderID] = useState("");
-  const[itemID, setItemID] = useState("");
   const[userID, setUserID] = useState(""); 
   const[minCost, setMinCost] = useState(""); 
   const[maxCost, setMaxCost] = useState("");  
@@ -15,7 +14,10 @@ export default function SellerAccount() {
   const submitted = (e) =>{
     e.preventDefault(); 
     Axios.post("http://localhost:3001/get-order-invoice",{
-      orderID : orderID
+      orderID : orderID,
+      userID : userID,
+      minCost : minCost, 
+      maxCost : maxCost
     }).then(resp =>{
       setMysqlQuery(String(resp.data.query));
       setdbResponse(mapJSON(resp.data.result)); 
@@ -39,7 +41,7 @@ export default function SellerAccount() {
           <div>
             <label htmlFor="orderID">Min cost: </label>
             <input 
-              placeholder="ex. 1/1/2022"
+              placeholder="ex. 0.00"
               type="text"
               id="minCost"
               value={minCost}
@@ -49,7 +51,7 @@ export default function SellerAccount() {
           <div>
           <label htmlFor="maxCost">Max cost: </label>
           <input 
-            placeholder="ex. $200"
+            placeholder="ex. 200.00"
             type="text"
             id="maxCost"
             value={maxCost}

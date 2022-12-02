@@ -9,13 +9,16 @@ export default function ReadWareHouseInfo() {
   const[city, setCity] = useState(""); 
   const[theState, setTheState] = useState(""); 
   const[country, setCountry]=  useState(""); 
-  const[showItems, setShowItems] = useState(""); 
+  const[showItems, setShowItems] = useState(false); 
 
   const submitted = (e) =>{
     e.preventDefault(); 
     Axios.post("http://localhost:3001/get-warehouse",{
-      WID : WID
+      WID : WID,
+      showItems : showItems,
+      city : city
     }).then(resp =>{
+      console.log(showItems)
       setMysqlQuery(String(resp.data.query));
       setdbResponse(mapJSON(resp.data.result)); 
     })
@@ -42,31 +45,14 @@ export default function ReadWareHouseInfo() {
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
-        <label htmlFor="thestate">State: </label>
-        <input 
-          placeholder="ex. MD"
-          type="text"
-          id="thestate"
-          value={theState}
-          onChange={(e) => setTheState(e.target.value)}
-        />
-        <label htmlFor="country">Country: </label>
-        <input 
-          placeholder="ex. United States"
-          type="text"
-          id="country"
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        />
         <label htmlFor="showItems">Show items located in warehouse? </label>
             <select
                 id="showItems"
                 value={showItems}
                 onChange={(e)=> setShowItems(e.target.value)}
             >
-                <option></option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value={true}>Yes</option>
+                <option value={false}>No</option>
             </select>
         <input className="submit" type="submit" value="Submit"/>
       </form>

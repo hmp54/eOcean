@@ -202,10 +202,9 @@ app.post('/get-product-types', (req, res)=>{
     let values; 
 
     if(productCategory.length > 0){
-        theQuery = "SELECT * FROM products where product_name = ? AND product_category = ?;"
-        values = [productName, productCategory]
+        theQuery = `SELECT * FROM products where product_name LIKE '${productName}%' AND product_category = '${productCategory}';`;
     } else{
-        theQuery =  "SELECT * FROM products where product_name = ?"; 
+        theQuery =  `SELECT * FROM products where product_name LIKE '${productName}%';` 
         values = [productName];
     }
 
@@ -225,24 +224,31 @@ app.post('/get-product-types', (req, res)=>{
 
 app.post('/get-order-invoice', (req, res)=>{
     const orderID = req.body.orderID; 
+    const userID = req.body.userID; 
+    const minCost = req.body.minCost; 
+    const maxCost = req.body.maxCost; 
 
-    let theQuery = 'SELECT * FROM orders WHERE order_id=?';
-    let values = [orderID]; 
-
-    if(!(typeof theQuery == 'undefined')){
-        db.query(
-            theQuery,
-            values,
-            (err, result)=>{
-                if(err) {
-                    console.log(err)
-                    res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
-                } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
-            }
-        )
-    } else{
-        res.send({result : "❓", query : theQuery, dbResponse: "Unable to create query. Please double-check the forms and try again!"})
+    let theQuery; 
+    let values; 
+  
+    if(orderID.length > 0){
+        theQuery = 'SELECT * FROM orders WHERE order_id=?';
+        values = [orderID]; 
+    } else if(minCost.length && maxCost.length > 0){
+        theQuery = 'SELECT * FROM Orders WHERE order_cost > ? AND order_cost < ?;'
+        values = [minCost, maxCost]
     }
+
+    db.query(
+        theQuery,
+        values,
+        (err, result)=>{
+            if(err) {
+                console.log(err)
+                res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
+            } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+        }
+    )
 })
 
 /** READ queries */
@@ -252,9 +258,11 @@ app.post('/get-user-account', (req, res)=>{
     const fname = req.body.fname; 
     const lname = req.body.lname; 
     const seller = req.body.seller; 
-    const fInitial = req.body.fInitial;
-    const lInitial = req.body.lInitial; 
-
+    const fInitial = (req.body.fInitial);
+    const lInitial = (req.body.lInitial); 
+    console.log(typeof fInitial);
+    console.log(typeof lInitial);
+    console.log(fname + lname)
     let theQuery;
     let values; 
     console.log("INITIALS: " + fInitial + lInitial)
@@ -284,18 +292,16 @@ app.post('/get-user-account', (req, res)=>{
 
 
     if((!seller) && (fInitial.length > 0 && lInitial.length > 0)){
-        console.log("OPTION 4")
-        theQuery = "SELECT * FROM users WHERE (users.first_name LIKE ?% AND users.last_name LIKE ?%)";
-        values = [fInitial, lInitial]
+        console.log("OPTION 4");
+        theQuery = `SELECT * FROM users WHERE (first_name LIKE '${fInitial}%' AND last_name LIKE '${lInitial}%')`;
     }
     
     if((seller) && (fInitial.length > 0 && lInitial.length > 0)){
         console.log("OPTION 5")
-        theQuery = "SELECT * FROM users JOIN sellers WHERE (users.first_name LIKE ?% AND users.last_name LIKE ?%)";
-        values = [fInitial, lInitial]
+        theQuery = `SELECT * FROM users JOIN sellers WHERE (users.first_name LIKE '${fInitial}%' AND users.last_name LIKE '${lInitial}%')`;
+
     }
 
-    if(!(typeof theQuery == 'undefined')){
         db.query(
             theQuery,
             values,
@@ -303,12 +309,13 @@ app.post('/get-user-account', (req, res)=>{
                 if(err) {
                     console.log(err)
                     res.send({ result : (err.sqlMessage), query:  theQuery, dbResponse: "Uh-oh, something went wrong." + err})
-                } else res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+                } else {
+                    console.log("Trying to turn result into json: " + result)
+                    res.send({result : result, query:  theQuery, dbResponse: "Success! Fetching user data 🎉"})
+                }
             }
         )
-    } else{
-        res.send({result : "❓", query : theQuery, dbResponse: "Unable to create query. Please double-check the forms and try again!"})
-    }
+
 })
 
 
@@ -331,8 +338,26 @@ app.post('/get-item-listing', (req, res) =>{
 
 app.post('/get-warehouse', (req, res) =>{
     const WID = req.body.WID; 
-    let theQuery = 'SELECT * FROM warehouses WHERE warehouse_id = ?'
-    let values = [WID]
+    const showItems = req.body.showItems; 
+    const city = req.body.city;
+    console.log(showItems)
+    let theQuery;
+    let values; 
+
+    if(showItems == false && city.length == 0){
+        theQuery = 'SELECT * FROM warehouses WHERE warehouse_id = ?';
+        values = [WID]
+    } else if (showItems && city.length == 0){
+        theQuery = 'select * FROM warehouses JOIN itemlistings where warehouses.warehouse_id = ?;' 
+        values = [WID]
+    } else if (showItems == false){
+        theQuery = 'SELECT * FROM warehouses WHERE city = ?;'
+        values = [city]
+    } else {
+        theQuery = 'SELECT * FROM warehouses JOIN itemlistings where warehouses.city = ?;'
+        values=[city]
+    }
+
     db.query(
         theQuery,
         values,

@@ -6,21 +6,6 @@ export default function GetCategories({getCategoryChange}) {
     let [renderList, setRenderList] = useState(); 
     let dbResponse; 
 
-  /*  const loadOptions = () =>{
-        //let categories = ['Bags', 'Dresses', 'Home','Jackets','Jewelry']
-        let categories =[]; 
-        Axios.post("http://localhost:3001/get-dropdown-categories", {
-           dbResponse : dbResponse
-        }
-        ).then(resp =>{
-            for(let i = 0; i < resp.data.length; i++){
-                categories[i] = resp.data[i].category_name; 
-                console.log(categories[i])
-            }
-        })
-    } */ 
-    
-
     useEffect(()=>{
         let categories =[]; 
         Axios.post("http://localhost:3001/get-dropdown-categories", {

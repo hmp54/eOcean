@@ -1,6 +1,7 @@
 import React, { useState, useContext }  from 'react'
 import Axios from 'axios'; 
 import {DbmsContext} from '../../screens/OptionMenu'; 
+import GetCategories from '../fetch-components/GetCategories';
 
 export default function ProductType() {
   const[productName, setName] = useState("");
@@ -9,6 +10,10 @@ export default function ProductType() {
   const[prodID, setProdID] = useState("");
 
   const {dbResponse, mysqlQuery, setdbResponse, setMysqlQuery} = useContext(DbmsContext);
+ 
+  const getCategoryChange = (newCategory) =>{ 
+    setCategory(newCategory); 
+  }
 
   const submitted = (e) =>{
     e.preventDefault(); 
@@ -43,13 +48,18 @@ export default function ProductType() {
           onChange = {(e) => setName(e.target.value)}
         />
         <label htmlFor='productCategory'>Product Category:</label>
-        <input
+       {/* <input
           id="productCategory"
           type="text"
           value={productCategory}
           onChange={(e)=> setCategory(e.target.value)}
           placeholder="ex. Dresses"
+        />*/}
+        <GetCategories 
+          id='productCategory'
+          getCategoryChange={getCategoryChange}
         />
+
         <label htmlFor='productDescription'>Product Description:</label>
         <input
           placeholder='for example: white low-top tennis shoes.'
